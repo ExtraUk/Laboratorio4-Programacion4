@@ -563,7 +563,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 6: //Consultar Promocion
+            case 6: //Consultar Promocion TERMINADO
                 try{
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
