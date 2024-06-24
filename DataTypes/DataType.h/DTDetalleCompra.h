@@ -9,7 +9,7 @@ using namespace std;
 
 class DTDetalleCompra {
 private:
-    list<string>* productos;
+    list<string> productos;
     int PrecioTotal;
     DTFecha FechaCompra;
 public:
@@ -18,7 +18,7 @@ public:
     void add(string producto); //hecho
     int getPrecio(); //hecho
     DTFecha getFecha(); //hecho
-    list<string>* getProductos(); //hecho
+    list<string> getProductos(); //hecho
     void sumarPrecio(int Precio); //hrcho
     void setFecha(DTFecha fecha); //hecho
     list<string> ImprimirDetalles(); //hecho

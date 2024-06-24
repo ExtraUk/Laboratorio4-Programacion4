@@ -665,7 +665,9 @@ void RealizarCaso(){
                     }
                     if (agregados.size() > 0){
                         Detalles = fab->getICompra()->getDetalles(fechaActual);
-                        cout << Detalles.ImprimirDetalles();
+                        for (string aListar :Detalles.ImprimirDetalles()){
+                            cout << aListar << "\n";
+                        }
                         do{
                             cout << "Desea realizar compra? (si = 1, no = 2)";
                             cin >> select2;
@@ -905,7 +907,7 @@ void RealizarCaso(){
             case 11: //Expediente Usuario TERMINADO
                 try{
                     string sele1;
-                    mostrarListaString(fab->getIUsuario()->ListarUsuariosNombre());
+                    mostrarListaString(fab->getIUsuario()->ListarUsuarios());
                     cout << "\n Seleccione el nombre del Usuario: ";
                     cin.get();
                     getline(cin, sele1, '\n');

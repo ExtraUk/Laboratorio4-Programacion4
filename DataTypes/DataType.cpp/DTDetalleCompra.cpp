@@ -19,7 +19,7 @@ DTFecha DTDetalleCompra::getFecha() {
     return this->FechaCompra;
 }
 
-list<string>* DTDetalleCompra::getProductos() {
+list<string> DTDetalleCompra::getProductos() {
     return this->productos;
 }
 
@@ -33,7 +33,7 @@ void DTDetalleCompra::setFecha(DTFecha fecha) {
 
 list<string> DTDetalleCompra::ImprimirDetalles() {
     list<string> ret;
-    for (string producto : *this->productos)  {
+    for (string producto : this->productos)  {
         ret.push_back(producto + ", ");
     }
     ret.push_back("fecha de compra: " + this->FechaCompra.toString());

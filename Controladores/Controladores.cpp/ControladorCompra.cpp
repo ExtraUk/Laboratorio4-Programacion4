@@ -80,7 +80,7 @@ DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
                 for(Producto* prod :promo->getProductos())   
                 {
                     CompraProd = aComprar[prod->getId()];
-                    aDevolver.getProductos()->push_back(prod->getNombre() + ": " + to_string(CompraProd->getCantidad()) + ", $" + to_string((CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()))));
+                    aDevolver.getProductos().push_back(prod->getNombre() + ": " + to_string(CompraProd->getCantidad()) + ", $" + to_string((CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()))));
                     aDevolver.sumarPrecio(CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()));
                     agregados.insert({prod->getId(), CompraProd});
                     aComprar.erase(prod->getId());
@@ -88,12 +88,11 @@ DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
             }
         }
     }
-    cout << aDevolver.getPrecio();
     for (auto const& [key, val] :aComprar)
     {
         CompraProducto * actual = val;
         aDevolver.sumarPrecio(actual->getCantidad() * actual->getPrecio());
-        aDevolver.getProductos()->push_back(actual->getProducto()->getNombre() + ": " + to_string(actual->getCantidad()) + ", $" + to_string(CompraProd->getCantidad()*CompraProd->getPrecio()));
+        aDevolver.getProductos().push_back(actual->getProducto()->getNombre() + ": " + to_string(actual->getCantidad()) + ", $" + to_string(CompraProd->getCantidad()*CompraProd->getPrecio()));
         agregados.insert({key, val});
         aComprar.erase(key);
     }
