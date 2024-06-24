@@ -761,10 +761,11 @@ void RealizarCaso(){
                         while (SelecCom == nullptr){
                             cout << "Seleccione el id del comentario al que desea responder" << endl;
                             cin >> selec4;
-                            SelecCom = fab->getIComentario()->seleccionarComentario(selec4);
-                            if (SelecCom == nullptr)
+                            if (selec4<26 || selec4>fab->getIComentario()->getcantidad())
                             {
                                 cout << "seleccion invalida, elija de nuevo";
+                            }else{
+                                SelecCom = fab->getIComentario()->seleccionarComentario(selec4);
                             }
                         }
                         cout << "ingrese su respuesta" << endl;

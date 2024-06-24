@@ -109,3 +109,7 @@ Comentario* ControladorComentario::seleccionarComentario(int id)
 	}
 	return comentarioSeleccionado;
 }
+
+int ControladorComentario::getcantidad(){
+	return this->cantidad;
+}

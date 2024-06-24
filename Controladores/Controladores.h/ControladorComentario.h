@@ -41,6 +41,6 @@ public:
     Comentario * ComentarioNuevo(string texto, DTFecha fecha, Producto * prod, Usuario * comentador);
     list<string> Comentarios(int codigo);
     Comentario* seleccionarComentario(int id);
+    int getcantidad();
 };
-
 #endif
