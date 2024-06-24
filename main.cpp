@@ -596,10 +596,10 @@ void RealizarCaso(){
                     cout<<"Lista de Promociones: ";
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
-                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion, de manera contraria ingrese Salir. \n";
+                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion, de manera contraria ingrese 0. \n";
                     cin.get();
                     getline(cin, sele, '\n');
-                    if(sele != "Salir"){
+                    if(sele != "0"){
                         if(fab->getIPromocion()->PromosDisponibles(sele)){
                             fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
                             cout<<"Productos de la promocion: ";
@@ -911,6 +911,7 @@ void RealizarCaso(){
             case 11: //Expediente Usuario TERMINADO
                 try{
                     string sele1;
+                    cout << "Lista de Usuarios: ";
                     mostrarListaString(fab->getIUsuario()->ListarUsuariosNombre());
                     cout << "\n Seleccione el nombre del Usuario: ";
                     cin.get();
@@ -973,6 +974,8 @@ void RealizarCaso(){
             case 13: //Consulta Notificaciones TERMINADO
                 try{
                     string sele2;
+                    cout<<"Lista de Clientes: ";
+                    mostrarSetString(fab->getIUsuario()->ListaClientes());
                     cout<<"Ingrese el Nickname del Cliente: ";
                     cin.ignore(80, '\n');
                     getline(cin, sele2, '\n');
