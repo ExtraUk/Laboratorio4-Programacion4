@@ -969,8 +969,9 @@ void RealizarCaso(){
                             cout << x.toString();}  
                             fab->getIUsuario()->LimpiarNotificaciones(); 
                         }else{
-                        }
                             cout<<"El cliente no cuenta con Notificaciones. \n";
+                        }
+                            
                         
                     }else{
                         throw(0);
