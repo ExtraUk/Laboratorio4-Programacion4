@@ -69,3 +69,7 @@ string Producto::toString(){
 }
 
 Producto::~Producto(){}
+
+void Producto::restarstock(int cantidad){
+    stock -= cantidad;
+}

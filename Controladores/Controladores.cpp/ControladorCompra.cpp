@@ -105,6 +105,10 @@ void ControladorCompra :: ConfirmarCompra(DTDetalleCompra Detalles,Cliente *Clie
 {
     idactual++;
     Compra * nuevo = new Compra(this->idactual,&this->aComprar, Detalles, ClienteCompra);
+    for (auto const& [key, val] :aComprar)
+    {
+        val->getProducto()->restarstock(val->getCantidad());
+    }
     Compras.insert({idactual,nuevo});
     DescartarCompra();
 }

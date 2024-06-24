@@ -26,6 +26,7 @@ public:
     TipoObjeto getTipo();
     string getDescripcion();
     int getCodigo();
+    void restarstock(int cantidad);
 };
 
 #endif
