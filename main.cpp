@@ -548,14 +548,15 @@ void RealizarCaso(){
                 try{
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
-                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion";
+                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion:  ";
                     cin.ignore(80, '\n');
                     getline(cin, sele, '\n');
                     if(fab->getIPromocion()->PromosDisponibles(sele)){
                         fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
+                        cout<<"Productos de la promocion: ";
                         mostrarListaString(fab->getIPromocion()->ListarProductosPromo());
                         fab->getIUsuario()->SeleccionarVendedorPromo();
-                        cout<< fab->getIUsuario()->InfoVendedor(fechaActual);
+                        cout<< "Informacion del Vendedor: " + fab->getIUsuario()->getVendedor()->toString() << "\n";
                     }else{
                         throw(0);
                     }  
@@ -910,10 +911,14 @@ void RealizarCaso(){
                     cin.ignore(80, '\n');
                     getline(cin, sele2, '\n');
                     if(fab->getIUsuario()->getClientes().find(sele2) != fab->getIUsuario()->getClientes().end()){
-                        for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
-                            cout << x.toString();
+                        if(fab->getIUsuario()->ConsultaNotificaciones(sele2).size() != 0){
+                             for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
+                            cout << x.toString();}  
+                            fab->getIUsuario()->LimpiarNotificaciones(); 
+                        }else{
                         }
-                        fab->getIUsuario()->LimpiarNotificaciones();
+                            cout<<"El cliente no cuenta con Notificaciones. \n";
+                        
                     }else{
                         throw(0);
                     }

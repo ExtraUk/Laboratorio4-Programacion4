@@ -40,7 +40,7 @@ list<string> ManejadorPromocion::ListarPromosDisponibles(DTFecha fechaActual) {
 	list<string> ListaPromo;
 	for (Promocion* i : Promociones) {
         if(i->getVigencia() >= fechaActual) {
-		    ListaPromo.push_back(i->toString()); 
+		    ListaPromo.push_back(i->getNombre()); 
 		}
 	}
 	return ListaPromo;
