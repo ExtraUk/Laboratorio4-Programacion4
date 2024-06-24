@@ -712,8 +712,8 @@ void RealizarCaso(){
                     Usuario* SelecUser = nullptr;
                     while(SelecUser == nullptr){
                         cout << "ingrese el usuario que desea seleccionar " << endl;
-                        cin.get(); //TO-DO ESTO NO ANDA CUANDO LE ERRA UNA VEZ AL NOMBRE
-                        getline(cin, seleccionado1, '\n');
+                        cin.clear();
+                        getline(cin, seleccionado1, '\n'); 
                         SelecUser = fab->getIUsuario()->getUsuario(seleccionado1);
                         if (SelecUser == nullptr)
                         {
