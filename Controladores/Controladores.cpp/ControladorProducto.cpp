@@ -31,9 +31,9 @@ Producto* ControladorProducto::SeleccionarProducto(int codigo){
 	}
 }
 
-list<string> ControladorProducto ::ListarProductos(){
+list<string> ControladorProducto ::ListarProductos(){ //Si se arregla esto se arregla todo
 	list<string>* aDevolver = new list<string>();
-	for(auto [key, val] : productos)
+	for(auto const&[key, val] : productos)
 	{
 		Producto* actual = val;
 		aDevolver->push_back((val->getCodigo()+ ": " + actual->getNombre()));

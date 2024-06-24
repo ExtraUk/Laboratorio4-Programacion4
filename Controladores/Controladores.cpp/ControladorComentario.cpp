@@ -19,7 +19,7 @@ list<string> ControladorComentario::ListarComentariosUsuario(Usuario* usu)
     list<string> ret;
 	for (auto const&[key,val] : this->comentarios) {
 		if (val->getUsuario()->getNickname() == usu->getNickname()){
-			ret.push_back(val->getId() + ":" + val->getTexto());
+			ret.push_back(to_string(val->getId()) + ": " + val->getTexto());
 		}
 	}
 	return ret;
@@ -47,6 +47,7 @@ void ControladorComentario::EliminarHilo()
 	for (Comentario* res : comentarioSeleccionado->getRespuestas()){
 		EliminarHilo(res);
 	}
+	this->comentarios.erase(comentarioSeleccionado->getId());
 	delete comentarioSeleccionado; 
 }
 
@@ -54,6 +55,7 @@ void ControladorComentario::EliminarHilo(Comentario* respuesta)
 {
 	for (Comentario* res : respuesta->getRespuestas()){
 		EliminarHilo(res);
+		this->comentarios.erase(respuesta->getId());
 		delete respuesta;
 	}
 }

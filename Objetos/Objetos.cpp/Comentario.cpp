@@ -1,4 +1,5 @@
 #include "../Objetos.h/Comentario.h"
+using namespace std;
 
 
 Comentario::Comentario(string comentario, Producto* prod, Usuario* comentador, int cantidad, DTFecha fecha1)

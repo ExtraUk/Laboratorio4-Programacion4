@@ -56,10 +56,10 @@ static void CargarDatos(){ //Faltan promociones y compras
     Producto * prod14 = controladorProducto->AltaProducto(14, "Tablet", "Tablet Android de 10 pulgadas", 15, 15000, TipoObjeto::Electrodomestico, vend3);
     Producto * prod15 = controladorProducto->AltaProducto(15, "Reloj de Pared", "Reloj de pared vintage", 20, 150.50, TipoObjeto::Otro, vend5);
 
-    Comentario * coment1 = controladorComentario->ComentarioNuevo("Â¿La camiseta azul esta disponible en talla M?", DTFecha(1,6,2024), prod1, cli1);
+    Comentario * coment1 = controladorComentario->ComentarioNuevo("¿La camiseta azul esta disponible en talla M?", DTFecha(1,6,2024), prod1, cli1);
     Comentario * coment2 = controladorComentario->ComentarioNuevo("Si, tenemos la camiseta azul en talla M.", DTFecha(1,6,2024), prod1, vend2);
     coment1->agregarRespuesta(coment2);
-    Comentario * coment3 = controladorComentario->ComentarioNuevo("Â¿Es de buen material? Me preocupa la durabilidad.", DTFecha(2,6,2024), prod1, cli2);
+    Comentario * coment3 = controladorComentario->ComentarioNuevo("¿Es de buen material? Me preocupa la durabilidad.", DTFecha(2,6,2024), prod1, cli2);
     coment2->agregarRespuesta(coment3);
     Comentario * coment4 = controladorComentario->ComentarioNuevo("He comprado antes y la calidad es buena.", DTFecha(2,6,2024), prod1, cli1);
     coment3->agregarRespuesta(coment4);
