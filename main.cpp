@@ -891,6 +891,7 @@ void RealizarCaso(){
 }
 
 int main(){
+    cout << "Para terminar de ingresar un string use el caracter ." << endl;
     cout << "Elija una fecha para comenzar" << endl;
     CambiarFecha();
     cout <<"seleccione una opcion ingresando su numero correspondiente" << "\n";
