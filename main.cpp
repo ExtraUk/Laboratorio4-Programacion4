@@ -553,7 +553,7 @@ void RealizarCaso(){
                     fab->getIUsuario()->SeleccionarCliente("");
                     while(fab->getIUsuario()->getCliente() == nullptr){
                         cout << "seleccione un cliente con su nombre";
-                        cin >> seleccionado1;
+                        getline(cin, seleccionado1, '.');
                         fab->getIUsuario()->SeleccionarCliente(seleccionado1);
                         if (fab->getIUsuario()->getCliente() == nullptr) {
                             cout << "seleccion invalida, elija de nuevo";
@@ -637,7 +637,7 @@ void RealizarCaso(){
                     Usuario* SelecUser = nullptr;
                     while(SelecUser == nullptr){
                         cout << "ingrese el usuario que desea seleccionar";
-                        cin >> seleccionado1;
+                        getline(cin, seleccionado1, '.');
                         SelecUser = fab->getIUsuario()->getUsuario(seleccionado1);
                         if (SelecUser == nullptr)
                         {
@@ -664,7 +664,7 @@ void RealizarCaso(){
                     {
                     case 1:{
                         cout << "ingrese su comentario";
-                        cin >> seleccionado2;
+                        getline(cin, seleccionado2, '.');
                         fab->getIComentario()->ComentarioNuevo(seleccionado2,fechaActual,SelecProd,SelecUser);
                         break;
                     }
@@ -687,7 +687,7 @@ void RealizarCaso(){
                             }
                         }
                         cout << "ingrese su respuesta";
-                        cin >> seleccionado2;
+                        getline(cin, seleccionado2, '.');
                         fab->getIComentario()->Responder(seleccionado2, fab->getIProducto()->SeleccionarProducto(selec3), SelecCom, fechaActual, SelecUser);
                         break;
                     }
