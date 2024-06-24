@@ -372,7 +372,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 3: //Alta de Producto TERMINADO?
+            case 3: //Alta de Producto TERMINADO
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
                     IUsuario* controladorUsuario = fab->getIUsuario();
@@ -444,16 +444,16 @@ void RealizarCaso(){
                         cout << "ERROR";
                     }
                 }
-            case 4: //Consulta Producto LE FALTA
+            case 4: //Consulta Producto TERMINADO
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
-                    //map<int, Producto*> productos = controladorProducto->getProductos();
-                    list<string> productos = controladorProducto->ListarProductos(); //
-                    if (productos.size() == 0){ //if (productos.size() == 0){ 
+                    map<int, Producto*> productos = controladorProducto->getProductos();
+                    //list<string> productos = controladorProducto->ListarProductos(); //
+                    /*if (productos.size() == 0){*/ if (productos.size() == 0){ 
                         throw(0);
                     } else {
                         cout << "Seleccione un producto por su id:" << endl;
-                        mostrarListaString(productos); //for(auto [key, val] : productos){ cout << val.getCodigo() << ": " + val.getNombre() << "\n";
+                        /*mostrarListaString(productos);*/ for(auto [key, val] : productos) cout << val->getCodigo() << ": " + val->getNombre() << "\n";
                         int producto; 
                         cin >> producto;
                         Producto* prod = controladorProducto->SeleccionarProducto(producto);
@@ -796,7 +796,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 9:{ //Eliminar Comentario
+            case 9:{ //Eliminar Comentario TERMINADO
                 try{
                     IUsuario* controladorUsuario = fab->getIUsuario();
                     IComentario* controladorComentario = fab->getIComentario();
