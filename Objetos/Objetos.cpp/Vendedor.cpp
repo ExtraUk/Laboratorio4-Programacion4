@@ -11,7 +11,7 @@ Vendedor::Vendedor(string nickname, DTFecha fechaN, string contr, string RUT){
 }
 
 string Vendedor::toString(){
-	return this->nickname + ", " + this->fechaNacimiento.toString() + ", " + this->RUT;
+	return this->nickname + ", " + this->fechaNacimiento.toString() + ", " + this->RUT+ ".";
 }
 
 list<IObserver *> Vendedor::getClientesSuscritos()
