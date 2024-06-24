@@ -829,16 +829,13 @@ void RealizarCaso(){
             case 11: //Expediente Usuario
                 try{
                     string sele1;
-                    fab->getIUsuario()->ListarUsuarios();
-                    cout << "seleccione el nombre del Usuario: ";
-                    cin.ignore(80, '\n');
+                    mostrarListaString(fab->getIUsuario()->ListarUsuarios());
+                    cout << "\n Seleccione el nombre del Usuario: ";
+                    cin.ignore(10, '\n');
                     getline(cin, sele1, '\n');
-                    if(sele1.length() == 0){
-                        throw(0);
-                    }
                     Usuario* chequeo = fab->getIUsuario()->getUsuario(sele1);
-                    if(chequeo != nullptr){
-                        throw(1);
+                    if(chequeo == nullptr){
+                        throw(0);
                     }
                     fab->getIUsuario()->SeleccionarUsuario(sele1);//nombre no valido 
                     if(fab->getIUsuario()->getVendedor() != nullptr){
@@ -852,9 +849,7 @@ void RealizarCaso(){
                         case 0:
                             cout << "Error: El nombre del Usuario es invalido" << endl;
                             break;
-                        case 1:
-                            cout << "Error: El nombre del Usuario es invalido" << endl;
-                            break;
+    
                     }
                 }
                 cout <<"seleccione otro caso" << "\n";

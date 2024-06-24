@@ -254,9 +254,12 @@ string ControladorUsuario::InfoVendedor(DTFecha fechaActual){
 
 
 string ControladorUsuario::InfoCliente(){  
-    string infoCliente = "Compras Realizadas: ";
-	for(auto comp : cliente->getCompras()){
-		infoCliente = infoCliente + comp->toString() + "\n";
+    string infoCliente;
+	if(cliente->getCompras().size() != 0){
+		infoCliente += "Compras Realizadas: ";
+		for(auto comp : cliente->getCompras()){
+			infoCliente += comp->toString() + "\n";
+		}
 	}
 	infoCliente = "Informacion del Cliente: " + this->cliente->toString() + "\n" + infoCliente;
     return infoCliente;
