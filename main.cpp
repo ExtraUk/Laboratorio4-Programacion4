@@ -922,7 +922,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 12: //Suscribirse a Notificaciones
+            case 12: //Suscribirse a Notificaciones TERMINADO
                 try{
                     cout << "Ingrese el Nickname del cliente que desea suscribir" << endl;
                     string nick;
@@ -936,7 +936,6 @@ void RealizarCaso(){
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
-                        cin.get();
                         getline(cin, nick, '\n');
                         if(nick != "0"){
                             if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
@@ -953,7 +952,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 13: //Consulta Notificaciones
+            case 13: //Consulta Notificaciones TERMINADO
                 try{
                     string sele2;
                     cout<<"Ingrese el Nickname del Cliente: ";
@@ -980,7 +979,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 14: //Eliminar Suscripcion
+            case 14: //Eliminar Suscripcion TERMINADO
                 try{
                     cout << "Ingrese el Nickname del cliente que desea desuscribir" << endl;
                     string nick;
