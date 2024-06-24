@@ -28,7 +28,7 @@ void Compra::prodEnviado(int producto){
 }
  
 int Compra::getId(){
-    return this->getId();
+    return this->id;
 }
 
 map<int, CompraProducto*> Compra::getProductos(){
@@ -42,7 +42,13 @@ DTFecha Compra::getFecha(){
 string Compra::toString(){
     string ret = this->id + " " + this->fechaCompra.toString() + " " + "precio total: " + to_string(this->precioTotal) + "\n";
     for(auto [key, value]: *this->Productos){
-        ret += value->getProducto()->toString() + ", " + to_string(value->getCantidad()) + "\n";
+        ret += value->getProducto()->toString() + ", " + to_string(value->getCantidad());
+        if(value->getEnviado()){
+            ret += ", enviado \n";
+        }
+        else{
+            ret += ", no enviado \n";
+        }
     }
     return ret;
 }

@@ -829,7 +829,7 @@ void RealizarCaso(){
                 cout <<"seleccione otro caso" << "\n";
                 break;
             }
-            case 10: //Enviar Producto
+            case 10: //Enviar Producto TERMINADO
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
                     IUsuario* controladorUsuario = fab->getIUsuario();
@@ -851,8 +851,11 @@ void RealizarCaso(){
                         throw(2);
                     }
                     cout << "Elija la id de un producto de la lista provista" << endl;
-                    for(string i: controladorProducto->ListarProductos()){
+                    /*for(string i: controladorProducto->ListarProductos()){
                         cout << i << endl;
+                    }*/
+                    for(auto prod: SelecVend->getProductos()){
+                        cout << to_string(prod->getCodigo()) + " " + prod->getNombre() << endl;
                     }
                     int idActual;
                     cin >> idActual;
@@ -860,8 +863,10 @@ void RealizarCaso(){
                         throw(4);
                     }
                     cout << "Seleccione una compra segun su id" << endl;
-                    for(string i: (fab->getICompra()->listarCompras(idActual))){
-                        cout << i << endl;
+                    for(Compra* compra: controladorCompra->getCompras()){
+                        if(compra->perteneceCompra(idActual) && !compra->getProductos()[idActual]->getEnviado()){
+                            cout << to_string(compra->getId()) << ": " << compra->getFecha().toString() << endl;
+                        }
                     }
                     int idCompra;
                     cin >> idCompra;

@@ -32,6 +32,8 @@ public:
 
     //pone envio en true
     void envioTrue();
+
+    bool getEnviado();
 };
 
 #endif

@@ -33,4 +33,8 @@ Producto * CompraProducto :: getProducto()
     return this->producto;
 }
 
+bool CompraProducto::getEnviado(){
+    return this->enviado;
+}
+
 CompraProducto::~CompraProducto(){}
