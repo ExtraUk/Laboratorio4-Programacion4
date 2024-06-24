@@ -27,14 +27,14 @@ void ManejadorPromocion :: IngresarDatosPromo(string nombre, DTFecha validaHasta
 	this->Productos = productos;
 }
 
-list<string> ManejadorPromocion::ListarPromosDisponibles(DTFecha fechaActual) {
-	list<string> ListaPromo;
-	for (Promocion* i : Promociones) {
-        if(i->getVigencia() >= fechaActual) {
-		    ListaPromo.push_back(i->toString()); 
+bool ManejadorPromocion::PromosDisponibles(Promocion* Promocion) {
+	for (Promo* i : Promociones) {
+        if(Promo == Promocion) {
+			return true;
+			break;
 		}
 	}
-	return ListaPromo;
+	return false;
 }
 
 list<Promocion*> ManejadorPromocion::ListarPromosDisponiblesPromo(DTFecha fechaActual) {
@@ -49,7 +49,6 @@ list<Promocion*> ManejadorPromocion::ListarPromosDisponiblesPromo(DTFecha fechaA
 
 void ManejadorPromocion::SeleccionarPromoDisponible(string nombre) {
 	PromoSeleccionada = findPromo(this->Promociones, nombre);
-	if(PromoSeleccionada == nullptr) throw("Error: El nombre de la Promocion es invalido");
 }
 
 list<Producto*> ManejadorPromocion:: getProductos(){

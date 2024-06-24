@@ -103,6 +103,8 @@ public:
     Usuario* getUsuario(string nickname);
 
     Vendedor* SeleccionarVendedorPromo();
+
+    void LimpiarNotificaciones();
 };
 
 #endif

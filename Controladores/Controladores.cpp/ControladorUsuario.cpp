@@ -76,11 +76,9 @@ void ControladorUsuario::SeleccionarUsuario(string nickname) {
 	this->cliente = nullptr;
 	if(getVendedor(nickname) != nullptr){
 		this->vendedor = getVendedor(nickname);
-	}else if(getCliente(nickname) != nullptr){
+	}else{
         this->cliente = getCliente(nickname);
-    }else{
-		throw("Error: El nombre de la Promocion es invalido");
-	}
+    }
 	
 }
 
@@ -214,10 +212,11 @@ Vendedor * ControladorUsuario::NuevoVendedor(string nombre, DTFecha fecha, strin
 }
 
 string ControladorUsuario::InfoVendedor(DTFecha fechaActual){
-	string infoVendedor;
+	string infoVendedor = "Productos: ";
 	for(auto producto: vendedor->getProductos()){
 		infoVendedor += producto->toString() + "\n";
 	}
+	infoVendedor = "Promociones: ";
 	for(auto promo: fab->getIPromocion()->ListarPromosDisponiblesPromo(fechaActual)){
 		Producto* prod = *promo->getProductos().begin();
 		for(auto [key, value] : vendedores){
@@ -226,30 +225,29 @@ string ControladorUsuario::InfoVendedor(DTFecha fechaActual){
 			}
 		}
 	}
-	infoVendedor = this->vendedor->toString() + "\n" + infoVendedor;
+	infoVendedor = "Informacion del Vendedor " + this->vendedor->toString() + "\n" + infoVendedor;
     return infoVendedor;
 }
 
 
 string ControladorUsuario::InfoCliente(){  
-    string infoCliente;
+    string infoCliente = "Compras Realizadas: ";
 	for(auto comp : cliente->getCompras()){
 		infoCliente = infoCliente + comp->toString() + "\n";
 	}
-	infoCliente = this->cliente->toString() + "\n" + infoCliente;
+	infoCliente = "Informacion del Cliente: " + this->cliente->toString() + "\n" + infoCliente;
     return infoCliente;
 }
 
 
 list<DTNotificacion> ControladorUsuario :: ConsultaNotificaciones(string nickname){ 
-    if(clientes.find(nickname) != clientes.end()){
-		Cliente* cliente  = clientes[nickname];
-        list<DTNotificacion> lista = cliente->getNotificaciones();
-        cliente->getNotificaciones().clear();
-        return lista;    
-    }else{
-		throw("Error: El nickname del cliente es invalido");
-	}
+	cliente  = clientes[nickname];
+    list<DTNotificacion> lista = cliente->getNotificaciones();
+    cliente->getNotificaciones().clear();
+    return lista;    
+}
+void ControladorUsuario :: LimpiarNotificaciones(){
+	cliente->getNotificaciones().clear();
 }
 
 

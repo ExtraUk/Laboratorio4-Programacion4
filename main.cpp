@@ -519,21 +519,23 @@ void RealizarCaso(){
                 break;
             case 6: //Consultar Promocion
                 try{
-                    string sele;
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
+                    string sele;
                     cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion";
                     cin>>sele;
-                    if(sele.length() != 0){
+                    if(PromosDisponibles(sele)){
                         fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
                         mostrarListaString(fab->getIPromocion()->ListarProductosPromo());
                         fab->getIUsuario()->SeleccionarVendedorPromo();
                         cout<< fab->getIUsuario()->InfoVendedor(fechaActual);
                     }else{
-                        
+                        throw(0);
                     }  
                 }
-                catch(string ex){
-                    cout << ex << endl;
+                catch(int numError){
+                    if(numError == 0){
+                        cout << "Error: El nombre de la Promocion es invalido" << endl;
+                    }
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -806,8 +808,15 @@ void RealizarCaso(){
                 try{
                     string sele1;
                     fab->getIUsuario()->ListarUsuarios();
-                    cout << "seleccione el nombre del Usuario";
+                    cout << "seleccione el nombre del Usuario: ";
                     cin >> sele1;
+                    if(sele1.length() == 0){
+                        throw(0);
+                    }
+                    Usuario* chequeo = controladorUsuario->getUsuario(sele1);
+                    if(chequeo != nullptr){
+                        throw(1);
+                    }
                     fab->getIUsuario()->SeleccionarUsuario(sele1);//nombre no valido 
                     if(fab->getIUsuario()->getVendedor() != nullptr){
                         cout << fab->getIUsuario()->InfoVendedor(fechaActual);
@@ -815,8 +824,14 @@ void RealizarCaso(){
                         cout << fab->getIUsuario()->InfoCliente();
                     }
                 }
-                catch(string ex){
-                    cout << ex << endl;
+                catch(int numError){
+                    switch(numError){
+                        case 0:
+                            cout << "Error: El nombre del Usuario es invalido" << endl;
+                            break;
+                        case 1:
+                            cout << "Error: El nombre del Usuario es invalido" << endl;
+                            break;
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -845,16 +860,23 @@ void RealizarCaso(){
                 break;
             case 13: //Consulta Notificaciones
                 try{
-                    //nickname mal
                     string sele2;
-                    cout<<"Ingrese el Nickname del Cliente";
+                    cout<<"Ingrese el Nickname del Cliente: ";
                     cin >> sele2;
-                    for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
-                        cout << x.toString();
+                    if(clientes.find(nickname) != clientes.end()){
+                        for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
+                            cout << x.toString();
+                        }
+                        LimpiarNotificaciones();
+                    }else{
+                        throw(0);
                     }
                 }
-                catch(string ex){
-                    cout << ex << endl;
+                catch(Int Error){
+                    if(Error == 0){
+                        cout << "Error: El nickname del cliente es invalido" << endl;        
+                    }
+                    
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;

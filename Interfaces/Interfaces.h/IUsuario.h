@@ -89,6 +89,8 @@ class IUsuario {
     virtual list<DTNotificacion> ConsultaNotificaciones(string nickname) = 0; 
 
     virtual Vendedor* SeleccionarVendedorPromo() = 0;
+
+    virtual void LimpiarNotificaciones() = 0;
 };
 
 #endif
