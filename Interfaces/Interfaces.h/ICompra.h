@@ -22,6 +22,7 @@ class ICompra
     virtual void DescartarCompra() = 0;
     virtual map<int, CompraProducto*> getaComprar() = 0;
     virtual void AgregarCompra(Compra* compra) = 0;
+    virtual void insertarCompraProducto(int cantidad, int idProd) = 0;
 };
 
 #endif

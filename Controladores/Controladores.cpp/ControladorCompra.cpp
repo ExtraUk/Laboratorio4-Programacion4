@@ -77,11 +77,12 @@ DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
             }
             if(seCumple)
             {
+                cout << to_string(promo->getDescuento()/100.0) << endl;
                 for(Producto* prod :promo->getProductos())   
                 {
                     CompraProd = aComprar[prod->getId()];
-                    aDevolver.getProductos().push_back(prod->getNombre() + ": " + to_string(CompraProd->getCantidad()) + ", $" + to_string((CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()))));
-                    aDevolver.sumarPrecio(CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()));
+                    aDevolver.getProductos().push_back(prod->getNombre() + ": " + to_string(CompraProd->getCantidad()) + ", $" + to_string((CompraProd->getCantidad()*CompraProd->getPrecio()*(1.0-(promo->getDescuento()/100.0)))));
+                    aDevolver.sumarPrecio(CompraProd->getCantidad()*CompraProd->getPrecio()*(1.0-(promo->getDescuento()/100.0)));
                     agregados.insert({prod->getId(), CompraProd});
                     aComprar.erase(prod->getId());
                 }
@@ -107,6 +108,7 @@ void ControladorCompra :: ConfirmarCompra(DTDetalleCompra Detalles,Cliente *Clie
     Compra * nuevo = new Compra(this->idactual,&this->aComprar, Detalles, ClienteCompra);
     for (auto const& [key, val] :aComprar)
     {
+        cout << to_string(key) << endl;
         val->getProducto()->restarstock(val->getCantidad());
     }
     Compras.insert({idactual,nuevo});
@@ -124,6 +126,11 @@ void ControladorCompra::DescartarCompra(){
 map<int, CompraProducto*> ControladorCompra :: getaComprar()
 {
     return this->aComprar;
+}
+
+void ControladorCompra::insertarCompraProducto(int cantidad, int idProd){
+    Fabrica * fab = new Fabrica();
+    this->aComprar.insert({idProd, new CompraProducto(cantidad, fab->getIProducto()->SeleccionarProducto(idProd), false)});
 }
 
 void ControladorCompra::AgregarCompra(Compra* compra){

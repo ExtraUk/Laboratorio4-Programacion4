@@ -50,7 +50,7 @@ string Compra::toString(){
             ret += ", no enviado \n";
         }
     }
-    ret =  this->id + "   Fecha de la Compra"+ this->fechaCompra.toString() + " " + "precio total: " + to_string(this->precioTotal) + "\n" + ret;
+    ret =  to_string(this->id) + "   Fecha de la Compra: "+ this->fechaCompra.toString() + ", " + "precio total: " + to_string(this->precioTotal) + "\n" + ret;
     return ret;
 }
 

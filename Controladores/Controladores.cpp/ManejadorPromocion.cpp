@@ -71,7 +71,7 @@ void ManejadorPromocion::agregarPromo(Promocion* promo){
 list<string> ManejadorPromocion ::ListarProductosPromo() {
 	list<string> ListaProductosPromo;
 	for (auto prod :PromoSeleccionada->getProductos()) {
-        ListaProductosPromo.push_back(prod->toString());    
+        ListaProductosPromo.push_back("Minimo: " + to_string(PromoSeleccionada->getCantidadProducto(*prod)) + ", " +  prod->toString());    
 	}
 	return ListaProductosPromo;
 }

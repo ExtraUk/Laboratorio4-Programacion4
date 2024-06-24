@@ -664,7 +664,7 @@ void RealizarCaso(){
                             } 
                             else{
                                 agregados.insert(select2);
-                                fab->getICompra()->getaComprar().insert({select2, new CompraProducto(cantidad, fab->getIProducto()->SeleccionarProducto(select2))});
+                                fab->getICompra()->insertarCompraProducto(cantidad, select2);
                             }
                         }
                     }

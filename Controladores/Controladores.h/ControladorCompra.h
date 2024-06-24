@@ -39,6 +39,8 @@ public:
     map<int, CompraProducto*> getaComprar();
 
     void AgregarCompra(Compra* compra);
+
+    void insertarCompraProducto(int cantidad, int idProd);
 };
 
 #endif
