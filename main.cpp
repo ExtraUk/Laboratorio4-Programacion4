@@ -535,8 +535,10 @@ void RealizarCaso(){
                         for (DTProducto p : controladorUsuario->ObtenerProductosVendedor(vendedor)){
                             if(p.getCodigo() == id) valido = true;
                         }
-                        valido = valido && !manejadorPromocion->estaEnPromocion(id); //Producto no en varias promociones a la vez
-                        if(!valido) throw(4);
+                        if(!valido) throw(4); //Producto no en varias promociones a la vez
+                        if(manejadorPromocion->estaEnPromocion(id)){
+                            throw(6);
+                        }
                         cout << "Seleccione la cantidad minima" << endl;
                         int cantmin;
                         cin >> cantmin;
@@ -580,6 +582,8 @@ void RealizarCaso(){
                     }
                     else if(numError == 5){
                         cout << "Error: Cantidad Invalida" << endl;
+                    } else if (numError == 6){
+                        cout << "El producto ya pertenece a una promocion" << endl;
                     }
                     else{
                         cout << "Error Desconocido" << endl;
