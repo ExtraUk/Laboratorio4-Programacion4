@@ -589,6 +589,7 @@ void RealizarCaso(){
                 break;
             case 6: //Consultar Promocion TERMINADO
                 try{
+                    cout<<"Lista de Promociones: ";
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
                     cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion:  ";
@@ -907,7 +908,7 @@ void RealizarCaso(){
             case 11: //Expediente Usuario TERMINADO
                 try{
                     string sele1;
-                    mostrarListaString(fab->getIUsuario()->ListarUsuarios());
+                    mostrarListaString(fab->getIUsuario()->ListarUsuariosNombre());
                     cout << "\n Seleccione el nombre del Usuario: ";
                     cin.get();
                     getline(cin, sele1, '\n');
