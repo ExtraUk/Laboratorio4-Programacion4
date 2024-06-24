@@ -1,0 +1,11 @@
+using namespace std;
+#include <Vendedor.h>
+
+Vendedor ControladorUsuario::SeleccionarVendedor(string NombreV){
+    for(Vendedor aListar :Vendedores){
+        if(aListar.getNickname() = NombreV){
+            return aListar;
+            break;
+        }
+    }
+}

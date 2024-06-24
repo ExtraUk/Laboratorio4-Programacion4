@@ -1,0 +1,84 @@
+#include <list>
+#include <set>
+using namespace std;
+list<string> ControladorUsuario::ListarNickUsuarios()
+{
+	aDevolver :set<string>;
+	for (Cliente aListar :Clientes){
+		aDevolver.add(getNickname(aListar));
+} 
+	for (Vendedor aListar :Vendedores){
+		aDevolver.add(getNickname(aListar));
+}
+	return aDevolver;
+}
+
+void ControladorUsuario::SeleccionarUsuario(string Nickname)
+{
+	 usuarioComentario = NULL;
+	 usuarioComentario = Vendedores.find(Nickname);
+	 if (usuarioComentario == NULL) usuarioComentario := Clientes.find(Nickname);
+}
+
+void ControladorProducto::seleccionarProducto(int codigo)
+{
+	 ProdSeleccionado = Productos.find(codigo);
+}
+
+void ControladorComentario::Comentar(string comentario)
+{
+	ControladorUsuario *controladorU;
+	ControladorProducto *controladorP;
+	controladorU = ;
+	controladorP = ;
+	Comentario *nuevo := Comentario(comentario, controladorP.getProdSeleccionado(), controladorU.getusuarioComentario(), Cantidad);
+	Comentarios.add(&nuevo);
+	Cantidad += 1;
+}
+
+Comentario::Comentario(string comentario, Producto producto, Usuario comentador, int cantidad)
+{
+	texto = comentario;
+	Producto = producto;
+	Usuario = comentador;
+	fecha = FECHA_HOY;
+	id =  cantidad;
+}
+
+set<string> ControladorComentario::ListarComentarios()
+{
+	ser<string> aDevolver; 
+	ControladorProducto *controladorP;
+	controladorP = ;
+	set<string>
+	for (Comentario comentario :Comentarios)
+	{
+		if (comentario.getProducto() == ControladorP.getProdSellecionado())
+		{
+			aDevolver.add(comentario.getId() + ":" + comentario.getTexto());
+		}
+	}
+	return aDevolver;
+}
+
+void ControladorComentario::SeleccionarComentario(int id)
+{
+	ComentarioSeleccionado = Comentarios.find(id);
+}
+
+void ControladorComentario::Responder()
+{
+	ControladorUsuario *controladorU;
+	ControladorProducto *controladorP;
+	controladorU = ;
+	controladorP = ;
+	Comentario *nuevo = new Comentario(comentario, controladorP.getProdSeleccionado(), controladorU.getusuarioComentario(), Cantidad);
+	Comentarios.add(&nuevo);
+	Cantidad += 1;
+	ComentarioSeleccionado.agregarRespuesta(nuevo);
+}
+
+void Comentario::agregarRespuesta(Comentario respuesta)
+{
+	Respuestas.add(respuesta);
+}

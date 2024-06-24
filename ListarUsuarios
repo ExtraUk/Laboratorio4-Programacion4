@@ -1,0 +1,30 @@
+#include <list>
+#include <set>
+using namespace std;
+list<string> ControladorUsuario::ListarUsuarios()
+{
+	set<string> aDevolver;
+	for (Cliente aListar :Clientes){
+		aDevolver.add(toString(aListar));
+} 
+	for (Vendedor aListar :Vendedores){
+		aDevolver.add(toString(aListar));
+}
+	return aDevolver;
+}
+
+
+string Cliente::toString()
+{
+	return nickname + toString(fechaNacimiento) + direccion + ciudad;
+}
+
+string Vendedor::toString()
+{
+	return nickname + toString(fechaNacimiento) + RUT;
+}
+
+string DataFecha::toString()
+{
+    return to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
+}

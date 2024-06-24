@@ -1,0 +1,121 @@
+#include "../Controladores.h/ControladorCompra.h"
+#include "../Controladores.h/ControladorProducto.h"
+#include "../../Objetos/Objetos.h/Fabrica.h"
+#include <string>
+#include <map>
+
+ControladorCompra * ControladorCompra::getInstancia(){
+	if(controladorCompra == nullptr){
+		controladorCompra = new ControladorCompra();
+	}
+    return controladorCompra;
+}
+
+ControladorCompra * ControladorCompra::controladorCompra = nullptr;
+
+ControladorCompra::ControladorCompra(){}
+
+set<Compra*> ControladorCompra::getCompras()
+{
+    set<Compra*> aDevolver;
+    for(auto const& [key, val] : this->Compras){
+        aDevolver.insert(val);
+    }
+    return aDevolver;
+}
+
+Compra* ControladorCompra::getCompra(int id){
+    if(this->Compras.find(id) != this->Compras.end()){
+        return this->Compras[id];
+    }
+    else{
+        return nullptr;
+    }
+}
+
+set<string> ControladorCompra::listarCompras(int prod){
+    set<string> aDevolver;
+    for(auto const& [key, val] : this->Compras){
+        if(val->perteneceCompra(prod)){
+            aDevolver.insert(to_string(val->getId()) + ": " + val->getFecha().toString());
+        }
+    }
+    return aDevolver;
+}
+
+void ControladorCompra::marcarEnviado(int prod, int id){
+        Compra* actual = this->Compras[id];
+        actual->prodEnviado(prod);
+}
+
+DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
+    Fabrica * fab = new Fabrica();
+    IPromocion * manejadorPromocion = fab->getIPromocion();
+    IProducto * controladorProducto = fab->getIProducto();
+    bool seCumple;
+    CompraProducto * CompraProd;
+    DTDetalleCompra aDevolver = DTDetalleCompra(fechaActual);
+    map<int, CompraProducto*> agregados;
+    for (Promocion* promo :manejadorPromocion->getPromociones())
+    {
+        if (promo->getVigencia() >= fechaActual)
+        {
+            seCumple = true;
+            for(Producto* prod :promo->getProductos())
+            {
+                if (aComprar.find(prod->getId()) == aComprar.end())
+                {
+                    seCumple = false;
+                    break;
+                }else
+                {
+                    CompraProd = aComprar[prod->getId()];
+                    seCumple = (seCumple && CompraProd->getCantidad() >= promo->getCantidadProducto(*prod));
+                }
+            }
+            if(seCumple)
+            {
+                for(Producto* prod :promo->getProductos())   
+                {
+                    CompraProd = aComprar[prod->getId()];
+                    aDevolver.getProductos()->push_back(prod->getNombre() + ": " + to_string(CompraProd->getCantidad()) + ", $" + to_string((CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()))));
+                    aDevolver.sumarPrecio(CompraProd->getCantidad()*CompraProd->getPrecio()*(1-promo->getDescuento()));
+                    agregados.insert({prod->getId(), CompraProd});
+                    aComprar.erase(prod->getId());
+                }
+            }
+        }
+    }
+    for (auto const& [key, val] :aComprar)
+    {
+        CompraProducto * actual = val;
+        aDevolver.sumarPrecio(actual->getCantidad() * actual->getPrecio());
+        aDevolver.getProductos()->push_back(actual->getProducto()->getNombre() + ": " + to_string(actual->getCantidad()) + ", $" + to_string(CompraProd->getCantidad()*CompraProd->getPrecio()));
+        agregados.insert({key, val});
+        aComprar.erase(key);
+    }
+    aComprar = agregados;
+    return aDevolver;
+}
+
+
+void ControladorCompra :: ConfirmarCompra(DTDetalleCompra Detalles,Cliente *ClienteCompra)
+{
+    idactual++;
+    Compra * nuevo = new Compra(this->idactual,&this->aComprar, Detalles, ClienteCompra);
+    Compras.insert({idactual,nuevo});
+    DescartarCompra();
+}
+
+void ControladorCompra::DescartarCompra(){
+    for(auto const& [key, val] :aComprar)
+    {
+        delete val;
+    }
+    aComprar.clear();
+}
+
+map<int, CompraProducto*> ControladorCompra :: getaComprar()
+{
+    return this->aComprar;
+}
