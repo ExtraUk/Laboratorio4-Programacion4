@@ -938,6 +938,10 @@ void RealizarCaso(){
                 break;
             case 12: //Suscribirse a Notificaciones TERMINADO
                 try{
+                    IUsuario* controladorUsu = fab->getIUsuario();
+                    for(string i : controladorUsu->ListaClientes()){
+                        cout << i << endl;
+                    }
                     cout << "Ingrese el Nickname del cliente que desea suscribir" << endl;
                     string nick;
                     cin.get();
@@ -948,7 +952,7 @@ void RealizarCaso(){
                     mostrarListaString(listaVendedores);
 
                     nick = "1";
-                    cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
+                    cout << "Ingrese el Nickname del vendedor a suscribir y luego 0 para salir" << endl;
                     while(nick != "0"){
                         getline(cin, nick, '\n');
                         if(nick != "0"){
@@ -996,6 +1000,10 @@ void RealizarCaso(){
                 break;
             case 14: //Eliminar Suscripcion TERMINADO
                 try{
+                    IUsuario* controladorUsu = fab->getIUsuario();
+                    for(string i : controladorUsu->ListaClientes()){
+                        cout << i << endl;
+                    }
                     cout << "Ingrese el Nickname del cliente que desea desuscribir" << endl;
                     string nick;
                     cin.get();
