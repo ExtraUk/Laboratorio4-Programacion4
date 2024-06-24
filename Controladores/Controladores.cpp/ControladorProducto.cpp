@@ -29,12 +29,12 @@ Producto* ControladorProducto::SeleccionarProducto(int codigo){
 	}
 }
 
-set<string> ControladorProducto ::ListarProductos(){
-	set<string> aDevolver;
+list<string> ControladorProducto ::ListarProductos(){
+	list<string> aDevolver;
 	for(auto const& [key, val] : productos)
 	{
 		Producto* actual = val;
-		aDevolver.insert((to_string(key) + ":" + actual->getNombre()));
+		aDevolver.push_back((to_string(key) + ":" + actual->getNombre()));
 	}
 }
 
