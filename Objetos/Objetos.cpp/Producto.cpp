@@ -20,6 +20,8 @@ static string tipoToString(TipoObjeto tipo){
     }
 }
 
+Producto::Producto(){}
+
 Producto::Producto(int id, string Nombre, float precio, int cantidad, string descripcion, TipoObjeto tipo){
     this->codigo = id;
     this->stock = cantidad;

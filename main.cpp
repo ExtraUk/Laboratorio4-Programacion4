@@ -230,7 +230,7 @@ static void CambiarFecha(){
         cin >> mes;
     }
     int ano = 0;
-    cout << "Año: ";
+    cout << "Anio: ";
     cin >> ano;
     fechaActual = DTFecha(dia,mes,ano);
 }
@@ -272,7 +272,7 @@ void RealizarCaso(){
                     if(chequeo != nullptr){
                         throw(1);
                     }
-                    cout << "Ingrese la fecha, primero ingrese el día, luego el mes y luego el año" << endl;
+                    cout << "Ingrese su fecha de nacimiento, primero ingrese el dia, luego el mes y luego el anio" << endl;
                     int dia;
                     int mes;
                     int anio;
@@ -283,7 +283,7 @@ void RealizarCaso(){
                         throw(4);
                     }
                     DTFecha fecha = DTFecha(dia, mes, anio);
-                    cout << "Inserte la contraseña" << endl;
+                    cout << "Inserte la contrasenia" << endl;
                     string contrasena;
                     cin >> contrasena;
                     if(contrasena.length() < 6){
@@ -316,7 +316,7 @@ void RealizarCaso(){
                         break;
                         }
                         case 2: {
-                        cout << "Ingrese el número de RUT" << endl;
+                        cout << "Ingrese el numero de RUT" << endl;
                         string RUT;
                         cin >> RUT;
                         if(RUT.length() != 12){
@@ -388,7 +388,8 @@ void RealizarCaso(){
                     cin >> cant;
                     cout << "Inserte la descripcion del producto" << endl;
                     string descr;
-                    cin >> descr;
+                    cin.get();
+                    getline(cin, descr, '\n');
                     cout << "Seleccione el tipo de producto de la lista proporcionada" << endl;
                     cout << "1: Ropa" << endl;
                     cout << "2: Electrodomestico" << endl;
@@ -421,9 +422,9 @@ void RealizarCaso(){
             case 4: //Consulta Producto
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
-                    if (controladorProducto->ListarProductos().empty()){
+                    /*if (controladorProducto->ListarProductos().empty()){
                         throw(0);
-                    } else {
+                    } else {*/
                         cout << "Seleccione un producto por su id:" << endl;
                         for (string i : controladorProducto->ListarProductos()){
                             cout << i << endl;
@@ -432,7 +433,7 @@ void RealizarCaso(){
                         cin >> producto;
                         Producto* prod = controladorProducto->SeleccionarProducto(producto);
                         cout << prod->toString() << endl;
-                    }
+                    //}
                 }
                 catch(int numError){
                     if(numError == 0){
@@ -463,12 +464,15 @@ void RealizarCaso(){
                     cout << "Ingrese el descuento de la promocion" << endl;
                     int descuento;
                     cin >> descuento;
-                    cout << "Ingrese la fecha de caducidad de la promocion, primero ingrese el día, luego el mes y luego el año" << endl;
+                    cout << "Ingrese la fecha de caducidad de la promocion" << endl;
                     int dia;
                     int mes;
                     int ano;
+                    cout << "Dia: ";
                     cin >> dia;
+                    cout << "Mes: ";
                     cin >> mes;
+                    cout << "Anio: ";
                     cin >> ano;
                     if(dia > 31 || dia < 1 || mes > 12 || mes < 1 || ano < 1){
                         throw(0);
@@ -497,6 +501,11 @@ void RealizarCaso(){
                         cout << "Seleccione un producto por su id" << endl;
                         int id;
                         cin >> id;
+                        bool valido = false;
+                        for (DTProducto p : controladorUsuario->ObtenerProductosVendedor(vendedor)){
+                            if(p.getCodigo() == id) valido = true;
+                        }
+                        if(!valido) throw(4);
                         cout << "Seleccione la cantidad minima" << endl;
                         int cantmin;
                         cin >> cantmin;
@@ -531,6 +540,8 @@ void RealizarCaso(){
                         cout << "El vendedor no tiene productos" << endl;
                     } else if (numError == 3){
                         cout << "El nombre de la promocion ya esta en uso" << endl;
+                    } else if(numError == 4){
+                        cout << "El producto no pertenece al vendedor seleccionado" << endl;
                     }
                 }
                 cout <<"seleccione otro caso" << "\n";
@@ -739,26 +750,35 @@ void RealizarCaso(){
                 cout <<"seleccione otro caso" << "\n";
                 break;
             case 9:{ //Eliminar Comentario
-                IUsuario* controladorUsuario = fab->getIUsuario();
-                IComentario* controladorComentario = fab->getIComentario();
-                for(string i : controladorUsuario->ObtenerUsuarios()){
-                    cout << i << endl;
-                }
-                cout << "Seleccione un usuario" << endl;
-                string usuario;
-                cin >> usuario;
-                Usuario* usu = controladorUsuario->getUsuario(usuario);
-                for(string c : controladorComentario->ListarComentariosUsuario(usu)){
-                    cout << c << endl;
-                }
-                cout << "Seleccione un comentario escribiendo su id" << endl;
-                int idcomentario;
-                cin >> idcomentario;
+                try{
+                    IUsuario* controladorUsuario = fab->getIUsuario();
+                    IComentario* controladorComentario = fab->getIComentario();
+                    for(string i : controladorUsuario->ObtenerUsuarios()){
+                        cout << i << endl;
+                    }
+                    cout << "Seleccione un usuario" << endl;
+                    string usuario;
+                    cin >> usuario;
+                    Usuario* usu = controladorUsuario->getUsuario(usuario);
+                    if(controladorComentario->ListarComentariosUsuario(usu).empty()){
+                        throw(0);
+                    }
+                    for(string c : controladorComentario->ListarComentariosUsuario(usu)){
+                        cout << c << endl;
+                    }
+                    cout << "Seleccione un comentario escribiendo su id" << endl;
+                    int idcomentario;
+                    cin >> idcomentario;
 
-                controladorComentario->seleccionarComentario(idcomentario);
-                controladorComentario->EliminarHilo();
-                cout << "Comentario e hilo eliminados" << endl;
-
+                    controladorComentario->seleccionarComentario(idcomentario);
+                    controladorComentario->EliminarHilo();
+                    cout << "Comentario e hilo eliminados" << endl;
+                }
+                catch(int numError){
+                    if(numError == 0){
+                        cout << "El usuario no tiene comentarios" << endl;
+                    }
+                }
                 cout <<"seleccione otro caso" << "\n";
                 break;
             }
@@ -869,6 +889,7 @@ void RealizarCaso(){
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
+                        cin.get();
                         getline(cin, nick, '\n');
                         if(nick != "0"){
                             if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
@@ -876,6 +897,9 @@ void RealizarCaso(){
                     }
                     
                     fab->getIUsuario()->ConfirmarSuscripcion();
+                }
+                catch(string ex){
+                    cout << ex;
                 }
                 catch(...){
                     cout << "Ocurrio un error" << endl;
@@ -946,6 +970,7 @@ void RealizarCaso(){
 }
 
 int main(){
+    bool cargarDatos = true;
     cout << "Elija una fecha para comenzar" << endl;
     CambiarFecha();
     while(true){
@@ -961,7 +986,10 @@ int main(){
                 RealizarCaso();
                 break;
             case 2:
-                CargarDatos();
+                if(cargarDatos){
+                    CargarDatos();
+                    cargarDatos = false;
+                }
                 break;
             case 3:
                 CambiarFecha();

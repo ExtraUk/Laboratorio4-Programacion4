@@ -44,7 +44,7 @@ public:
     Producto* SeleccionarProducto(int codigo);
 
     //lista los productos por id y nombre
-    set<string> ListarProductos();
+    list<string> ListarProductos();
 
     //devuelve la cantidad de productos que hay en el sistema
     int CantidadProductos(); //hecha
