@@ -258,7 +258,7 @@ void RealizarCaso(){
         cout <<"15: Volver al menu" << "\n";
         cin >> seleccionado;
         switch(seleccionado){
-            case 1: //Alta Usuario
+            case 1: //Alta Usuario TERMINADO
                 try{
                     IUsuario* controladorUsuario = fab->getIUsuario();
                     cout << "Ingrese el nombre del nuevo usuario \n";
@@ -285,7 +285,8 @@ void RealizarCaso(){
                     DTFecha fecha = DTFecha(dia, mes, anio);
                     cout << "Inserte la contrasenia" << endl;
                     string contrasena;
-                    cin >> contrasena;
+                    cin.get();
+                    getline(cin, contrasena, '\n');
                     if(contrasena.length() < 6){
                         throw(2);
                     }
@@ -302,13 +303,14 @@ void RealizarCaso(){
                         case 1:{
                         cout << "Ingrese la Ciudad" << endl;
                         string ciudad;
-                        cin >> ciudad;
+                        cin.get();
+                        getline(cin, ciudad, '\n');
                         if(ciudad.length() == 0){
                         throw(0);
                         }
                         cout << "Ingrese la direccion" << endl;
                         string dir;
-                        cin >> dir;
+                        getline(cin, dir, '\n');
                         if(dir.length() == 0){
                         throw(0);
                         }
@@ -322,8 +324,8 @@ void RealizarCaso(){
                         if(RUT.length() != 12){
                             throw(3);
                         }
-                        if(RUT.length() == 0){
-                        throw(0);
+                        for(auto c: RUT){
+                            if(!isdigit(c)) throw(3);
                         }
                         controladorUsuario->NuevoVendedor(nombre, fecha, contrasena, RUT);
                         break;
