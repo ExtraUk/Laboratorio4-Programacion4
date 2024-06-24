@@ -40,7 +40,7 @@ DTFecha Compra::getFecha(){
 }
 
 string Compra::toString(){
-    string ret = this->id + " " + this->fechaCompra.toString() + " " + "precio total: " + to_string(this->precioTotal) + "\n";
+    string ret ;
     for(auto [key, value]: *this->Productos){
         ret += value->getProducto()->toString() + ", " + to_string(value->getCantidad());
         if(value->getEnviado()){
@@ -50,6 +50,7 @@ string Compra::toString(){
             ret += ", no enviado \n";
         }
     }
+    ret =  this->id + "   Fecha de la Compra"+ this->fechaCompra.toString() + " " + "precio total: " + to_string(this->precioTotal) + "\n" + ret;
     return ret;
 }
 
