@@ -627,14 +627,12 @@ void RealizarCaso(){
                     fab->getIUsuario()->SeleccionarCliente("");
                     while(fab->getIUsuario()->getCliente() == nullptr){
                         cout << "seleccione un cliente con su nombre" << endl;
-                        cin.clear();
+                        cin.get();
                         getline(cin, seleccionado1, '\n');
                         fab->getIUsuario()->SeleccionarCliente(seleccionado1);
-                        cout << "otra vez el if lo rompe";
                         if (fab->getIUsuario()->getCliente() == nullptr) {
                             cout << "seleccion invalida, elija de nuevo";
                         }
-                        cout << "el if no lo rompe";
                     }
                     for (string aImprimir :fab->getIProducto()->ListarProductos()){
                         cout << aImprimir + "\n";
@@ -654,7 +652,7 @@ void RealizarCaso(){
                         else{
                             cout << "Seleccione la cantidad que desea comprar" << "\n";
                             cin >> cantidad;
-                            if (cantidad > fab->getIProducto()->SeleccionarProducto(cantidad)->getStock()){
+                            if (cantidad > fab->getIProducto()->SeleccionarProducto(select2)->getStock()){
                                 cout << "No hay suficientes en stock para realizar la compra, no se agrego el producto" << endl;
                             } 
                             else{
@@ -683,7 +681,7 @@ void RealizarCaso(){
                                     break;
                             }
                         }
-                        while ((select2 != 1) || (select2 != 0));
+                        while ((select2 != 1) && (select2 != 2));
                     }
                     cout <<"seleccione otro caso" << "\n";
                     break;
@@ -717,8 +715,8 @@ void RealizarCaso(){
                     Usuario* SelecUser = nullptr;
                     while(SelecUser == nullptr){
                         cout << "ingrese el usuario que desea seleccionar " << endl;
-                        cin.clear();
-                        getline(cin, seleccionado1, '\n'); 
+                        cin.get(); 
+                        getline(cin, seleccionado1, '\n');
                         SelecUser = fab->getIUsuario()->getUsuario(seleccionado1);
                         if (SelecUser == nullptr)
                         {
