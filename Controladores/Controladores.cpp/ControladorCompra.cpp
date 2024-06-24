@@ -112,7 +112,6 @@ void ControladorCompra :: ConfirmarCompra(DTDetalleCompra Detalles,Cliente *Clie
         val->getProducto()->restarstock(val->getCantidad());
     }
     Compras.insert({idactual,nuevo});
-    DescartarCompra();
 }
 
 void ControladorCompra::DescartarCompra(){
