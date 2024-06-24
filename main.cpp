@@ -592,17 +592,19 @@ void RealizarCaso(){
                     cout<<"Lista de Promociones: ";
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
-                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion:  ";
+                    cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion, de manera contraria ingrese Salir. \n";
                     cin.get();
                     getline(cin, sele, '\n');
-                    if(fab->getIPromocion()->PromosDisponibles(sele)){
-                        fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
-                        cout<<"Productos de la promocion: ";
-                        mostrarListaString(fab->getIPromocion()->ListarProductosPromo());
-                        fab->getIUsuario()->SeleccionarVendedorPromo();
-                        cout<< "Informacion del Vendedor: " + fab->getIUsuario()->getVendedor()->toString() << "\n";
-                    }else{
-                        throw(0);
+                    if(sele != "Salir"){
+                        if(fab->getIPromocion()->PromosDisponibles(sele)){
+                            fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
+                            cout<<"Productos de la promocion: ";
+                            mostrarListaString(fab->getIPromocion()->ListarProductosPromo());
+                            fab->getIUsuario()->SeleccionarVendedorPromo();
+                            cout<< "Informacion del Vendedor: " + fab->getIUsuario()->getVendedor()->toString() << "\n";
+                        }else{
+                            throw(0);
+                        }
                     }  
                 }
                 catch(int numError){
