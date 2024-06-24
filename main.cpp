@@ -905,7 +905,7 @@ void RealizarCaso(){
             case 11: //Expediente Usuario TERMINADO
                 try{
                     string sele1;
-                    mostrarListaString(fab->getIUsuario()->ListarUsuarios());
+                    mostrarListaString(fab->getIUsuario()->ListarUsuariosNombre());
                     cout << "\n Seleccione el nombre del Usuario: ";
                     cin.get();
                     getline(cin, sele1, '\n');

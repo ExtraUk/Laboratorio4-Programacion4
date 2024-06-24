@@ -14,6 +14,10 @@ Cliente::Cliente(string nickname, DTFecha fechaN, string contr, string dir, stri
 	this->ciudad = city;
 }
 
+string Cliente:: getNickname(){
+	return this->nickname;
+}
+
 string Cliente::toString()
 {
 	return this->nickname + ", " + this->fechaNacimiento.toString() + ", " + this->direccion + ", " + this->ciudad;

@@ -40,6 +40,8 @@ public:
     list<Compra*> getCompras();
 
     list<DTNotificacion> getNotificaciones();
+
+    string getNickname();
 };
 
 #endif

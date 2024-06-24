@@ -105,6 +105,8 @@ public:
     Vendedor* SeleccionarVendedorPromo();
 
     void LimpiarNotificaciones();
+
+    list<string> ListarUsuariosNombre();
 };
 
 #endif
