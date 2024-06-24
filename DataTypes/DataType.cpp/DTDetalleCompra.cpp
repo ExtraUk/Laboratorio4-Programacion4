@@ -5,11 +5,10 @@ using namespace std;
 DTDetalleCompra::DTDetalleCompra(DTFecha fechaActual) {
     this->PrecioTotal = 0;
     this->FechaCompra = fechaActual;
-    this->productos = new list<string>;
 }
 
 void DTDetalleCompra::add(string producto) {
-    this->productos->push_back(producto);
+    this->productos.push_back(producto);
 }
 
 int DTDetalleCompra::getPrecio() {
@@ -32,12 +31,12 @@ void DTDetalleCompra::setFecha(DTFecha fecha) {
     this->FechaCompra = fecha;
 }
 
-set<string>* DTDetalleCompra::ImprimirDetalles() {
-    set<string> *ret = new set<string>();
+list<string> DTDetalleCompra::ImprimirDetalles() {
+    list<string> ret;
     for (string producto : *this->productos)  {
-        ret->insert(producto + ", ");
+        ret.push_back(producto + ", ");
     }
-    ret->insert("fecha de compra: " + this->FechaCompra.toString());
-    ret->insert("precio: " + this->PrecioTotal);
+    ret.push_back("fecha de compra: " + this->FechaCompra.toString());
+    ret.push_back("precio: " + this->PrecioTotal);
     return ret;
 }

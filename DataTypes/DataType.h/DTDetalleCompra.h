@@ -21,6 +21,6 @@ public:
     list<string>* getProductos(); //hecho
     void sumarPrecio(int Precio); //hrcho
     void setFecha(DTFecha fecha); //hecho
-    set<string>* ImprimirDetalles(); //hecho
+    list<string> ImprimirDetalles(); //hecho
 };
 #endif
