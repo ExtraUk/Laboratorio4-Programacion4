@@ -50,9 +50,9 @@ void ControladorComentario::EliminarHilo(Comentario* respuesta)
 {
 	for (Comentario* res : respuesta->getRespuestas()){
 		EliminarHilo(res);
-		this->comentarios.erase(respuesta->getId());
-		delete respuesta;
 	}
+	this->comentarios.erase(respuesta->getId());
+	delete respuesta;
 }
 
 void ControladorComentario::Responder(string respuesta, Producto* prod, Comentario* com, DTFecha fechaActual,Usuario* comentador)
