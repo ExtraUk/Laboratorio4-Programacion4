@@ -445,17 +445,18 @@ void RealizarCaso(){
                     IProducto* controladorProducto = fab->getIProducto();
                     cout << "Ingrese el nombre de la promocion" << endl;
                     string nombre;
-                    cin >> nombre;
+                    cin.get();
+                    getline(cin, nombre, '\n');
                     for (Promocion * n : manejadorPromocion->getPromociones()){
                         if (nombre == n->getNombre()){
-                            cout << "Nombre en uso, ingrese otro nombre" << endl;
-                            cin >> nombre;
+                            throw(3);
                             break;
                         }
                     }
                     cout << "Ingrese la descripcion de la promocion" << endl;
                     string descripcion;
-                    cin >> descripcion;
+                    cin.get();
+                    getline(cin, descripcion, '\n');
                     cout << "Ingrese el descuento de la promocion" << endl;
                     int descuento;
                     cin >> descuento;
@@ -480,6 +481,9 @@ void RealizarCaso(){
                     if(ven == nullptr){
                         throw(1);
                     }
+                    if(controladorUsuario->ObtenerProductosVendedor(vendedor).empty()){
+                        throw(2);
+                    }
                     for (DTProducto p : controladorUsuario->ObtenerProductosVendedor(vendedor)){
                         cout << p.toString() << endl;
                     }
@@ -502,8 +506,8 @@ void RealizarCaso(){
                         int s;
                         cin >> s;
                         while(s != 1 && s != 0){
-                        cout << "Ingrese un valor valido" << endl;
-                        cin >> s;
+                            cout << "Ingrese un valor valido" << endl;
+                            cin >> s;
                         }
                         if (s == 0) {
                             seguir = true;
@@ -520,6 +524,10 @@ void RealizarCaso(){
                         cout << "La fecha ingresada es incorrecta" << endl;
                     } else if (numError == 1){
                         cout << "El vendedor seleccionado no existe" << endl;
+                    } else if (numError == 2){
+                        cout << "El vendedor no tiene productos" << endl;
+                    } else if (numError == 3){
+                        cout << "El nombre de la promocion ya esta en uso" << endl;
                     }
                 }
                 cout <<"seleccione otro caso" << "\n";
