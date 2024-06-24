@@ -1,7 +1,9 @@
 #include "../Controladores.h/ControladorProducto.h"
 #include <string>
 
-ControladorProducto::ControladorProducto(){}
+ControladorProducto::ControladorProducto(){
+	this->idactual = 16;
+}
 
 ControladorProducto * ControladorProducto::controladorProducto = nullptr;
 
@@ -29,12 +31,12 @@ Producto* ControladorProducto::SeleccionarProducto(int codigo){
 	}
 }
 
-list<string> ControladorProducto ::ListarProductos(){
-	list<string> aDevolver;
-	for(auto const& [key, val] : productos)
+list<string>* ControladorProducto ::ListarProductos(){
+	list<string>* aDevolver = new list<string>();
+	for(auto [key, val] : productos)
 	{
 		Producto* actual = val;
-		aDevolver.push_back((to_string(key) + ":" + actual->getNombre()));
+		aDevolver->push_back((val->getCodigo()+ ": " + actual->getNombre()));
 	}
 }
 

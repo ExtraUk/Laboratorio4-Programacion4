@@ -65,7 +65,7 @@ int Producto::getCodigo()
 }
 
 string Producto::toString(){
-    return this->nombre + " " + to_string(this->precio) + " " + to_string(this->stock) + " " + tipoToString(this->tipo) + " " + this->descripcion;
+    return this->codigo + " " + this->nombre + " " + to_string(this->precio) + " " + to_string(this->stock) + " " + tipoToString(this->tipo) + " " + this->descripcion;
 }
 
 Producto::~Producto(){}

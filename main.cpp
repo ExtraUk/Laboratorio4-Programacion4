@@ -421,23 +421,29 @@ void RealizarCaso(){
                         cout << "ERROR: El vendedor seleccionado no existe" << endl;
                     }
                 }
-            case 4: //Consulta Producto
+            case 4: //Consulta Producto LE FALTA
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
-                    /*if (controladorProducto->ListarProductos().empty()){
+                    //map<int, Producto*> productos = controladorProducto->getProductos();
+                    list<string>* productos = controladorProducto->ListarProductos(); //
+                    if (productos->size() == 0){ //if (productos.size() == 0){ 
                         throw(0);
-                    } else {*/
+                    } else {
                         cout << "Seleccione un producto por su id:" << endl;
-                        mostrarListaString(controladorProducto->ListarProductos());
-                        int producto;
+                        mostrarListaString(productos); //for(auto [key, val] : productos){ cout << val.getCodigo() << ": " + val.getNombre() << "\n";
+                        int producto; 
                         cin >> producto;
                         Producto* prod = controladorProducto->SeleccionarProducto(producto);
+                        if(prod == nullptr) throw(1);
                         cout << prod->toString() << endl;
-                    //}
+                    }
                 }
                 catch(int numError){
                     if(numError == 0){
                         cout << "No existen productos" << endl;
+                    }
+                    else if(numError == 1){
+                        cout << "Error: Id incorrecta" << endl;
                     }
                 }
                 cout <<"seleccione otro caso" << "\n" << endl;
@@ -592,7 +598,7 @@ void RealizarCaso(){
                             cout << "seleccion invalida, elija de nuevo";
                         }
                     }
-                    for (string aImprimir :fab->getIProducto()->ListarProductos()){
+                    for (string aImprimir :*fab->getIProducto()->ListarProductos()){
                         cout << aImprimir + "\n";
                     }
                     cout << "ingrese '0' como codigo para finalizar la seleccion de productos";
@@ -804,7 +810,7 @@ void RealizarCaso(){
                         throw(2);
                     }
                     cout << "Elija la id de un producto de la lista provista" << endl;
-                    for(string i: controladorProducto->ListarProductos()){
+                    for(string i: *controladorProducto->ListarProductos()){
                         cout << i << endl;
                     }
                     int idActual;
