@@ -98,16 +98,21 @@ Cliente * ControladorUsuario::getCliente(){
 	return this->cliente;
 }
 
-list<string> ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
-	list<string> ret;
-	if(this->clientes.find(nickname) == this->clientes.end()) throw("Error: Nickname de Cliente Invalido");
-	this->cliente = this->clientes[nickname];
-	for(auto [key,value]: this->vendedores){
-		bool noSuscrito = !value->suscrito(this->cliente);
-		if(noSuscrito){
-			string nick = value->getNickname();
-			ret.push_back(nick);
+list<string>* ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
+	try{
+		list<string>* ret = new list<string>();
+		if(this->clientes.find(nickname) == this->clientes.end()) return nullptr;
+		this->cliente = this->clientes[nickname];
+		for(auto [key,value]: this->vendedores){
+			bool noSuscrito = !value->suscrito(this->cliente);
+			if(noSuscrito){
+				string nick = value->getNickname();
+				ret->push_back(nick);
+			}
 		}
+	}
+	catch(...){
+		return nullptr;
 	}
 }
 
@@ -138,15 +143,15 @@ Cliente * ControladorUsuario::getCliente(string nickname)
 	}
 }
 
-list<string> ControladorUsuario::ListarVendedoresSuscritosCliente(string nickname){
-	list<string> ret;
-	if(this->clientes.find(nickname) == this->clientes.end()) throw("Error: Nickname de Cliente Invalido");
+list<string>* ControladorUsuario::ListarVendedoresSuscritosCliente(string nickname){
+	list<string>* ret = new list<string>;
+	if(this->clientes.find(nickname) == this->clientes.end()) return nullptr;
 	this->cliente = this->clientes[nickname];
 	for(auto [key,value]: this->vendedores){
 		bool suscrito = value->suscrito(this->cliente);
 		if(suscrito){
 			string nick = value->getNickname();
-			ret.push_back(nick);
+			ret->push_back(nick);
 		}
 	}
 }

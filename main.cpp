@@ -15,6 +15,12 @@ static void mostrarListaString(list<string> lista){
     }
 }
 
+static void mostrarListaString(list<string>* lista){
+    for(string str: *lista){
+        cout << str << endl;
+    }
+}
+
 static void CargarDatos(){ //Faltan promociones y compras
     Fabrica * fab = new Fabrica();
     IUsuario * controladorUsuario = fab->getIUsuario();
@@ -252,9 +258,10 @@ void RealizarCaso(){
             case 1: //Alta Usuario
                 try{
                     IUsuario* controladorUsuario = fab->getIUsuario();
-                    cout << "Ingrese el nombre del nuevo usuario" << endl;
+                    cout << "Ingrese el nombre del nuevo usuario \n";
                     string nombre;
-                    cin >> nombre;
+                    getline(cin, nombre, '.');
+                    cout << "Cuack" << nombre << "Cuack";
                     if(nombre.length() == 0){
                         throw(0);
                     }
@@ -824,13 +831,18 @@ void RealizarCaso(){
                 try{
                     cout << "Ingrese el Nickname del cliente que desea suscribir" << endl;
                     string nick;
-                    cin >> nick;
-                    mostrarListaString(fab->getIUsuario()->ListarVendedoresNoSuscrito(nick));
+                    cin.ignore(80, '\n');
+                    getline(cin, nick, '\n');
+                    list<string>* listaVendedores = fab->getIUsuario()->ListarVendedoresNoSuscrito(nick);
+                    if(listaVendedores == nullptr) throw("Error: Nickname de Cliente Invalido");
+                    cout << "Vendedores No Suscritos por el Cliente";
+                    mostrarListaString(listaVendedores);
 
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
-                        cin >> nick;
+                        cin.ignore(80, '\n');
+                        getline(cin, nick, '\n');
                         if(nick != "0"){
                             fab->getIUsuario()->SeleccionarVendedorNotificacion(nick);
                         }

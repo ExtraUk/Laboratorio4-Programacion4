@@ -49,7 +49,7 @@ class IUsuario {
     virtual void SeleccionarUsuario(string nickname) = 0; //hecha
 
     //lista los vendedores a los que no esta suscrito el cliente ingresado
-    virtual list<string> ListarVendedoresNoSuscrito(string nickname) = 0; //✔
+    virtual list<string>* ListarVendedoresNoSuscrito(string nickname) = 0; //✔
 
     virtual void SeleccionarVendedorNotificacion(string nickname) = 0; //✔
 
@@ -63,7 +63,7 @@ class IUsuario {
 
     //virtual set<DTNotificacion> ListarNotificaciones(string nickname) = 0;
 
-    virtual list<string> ListarVendedoresSuscritosCliente(string nickname) = 0; //✔
+    virtual list<string>* ListarVendedoresSuscritosCliente(string nickname) = 0; //✔
 
     virtual void EliminarSuscripcion() = 0; //✔
 
