@@ -464,7 +464,7 @@ void RealizarCaso(){
                     cout << "Ingrese el descuento de la promocion" << endl;
                     int descuento;
                     cin >> descuento;
-                    cout << "Ingrese la fecha de caducidad de la promocion, primero ingrese el día, luego el mes y luego el año" << endl;
+                    cout << "Ingrese la fecha de caducidad de la promocion, primero ingrese el dia, luego el mes y luego el anio" << endl;
                     int dia;
                     int mes;
                     int ano;
