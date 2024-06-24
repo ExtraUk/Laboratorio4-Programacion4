@@ -19,7 +19,7 @@ private:
     static ControladorUsuario * controladorUsuario;
     map<string,Cliente*> clientes;
     map<string,Vendedor*> vendedores;
-    list<Vendedor> vendedoresSeleccionados;
+    list<Vendedor*> vendedoresSeleccionados;
     string nickname;
     Cliente* cliente;
     Usuario* usuario;//va?
