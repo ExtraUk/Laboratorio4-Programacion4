@@ -77,7 +77,6 @@ DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
             }
             if(seCumple)
             {
-                cout << to_string(promo->getDescuento()/100.0) << endl;
                 for(Producto* prod :promo->getProductos())   
                 {
                     CompraProd = aComprar[prod->getId()];
@@ -108,7 +107,6 @@ void ControladorCompra :: ConfirmarCompra(DTDetalleCompra Detalles,Cliente *Clie
     Compra * nuevo = new Compra(this->idactual,&this->aComprar, Detalles, ClienteCompra);
     for (auto const& [key, val] :aComprar)
     {
-        cout << to_string(key) << endl;
         val->getProducto()->restarstock(val->getCantidad());
     }
     Compras.insert({idactual,nuevo});

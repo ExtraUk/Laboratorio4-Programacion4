@@ -246,7 +246,8 @@ static void CambiarFecha(){
 }
 
 
-void RealizarCaso(){
+void RealizarCaso()
+try{
     Fabrica * fab = new Fabrica();
     int seleccionado = 0;
     while (seleccionado != 15){
@@ -1039,6 +1040,10 @@ void RealizarCaso(){
                 break;
         }
     }
+}
+catch(...){
+    cout << "ERROR DESCONOCIDO" << endl;
+    RealizarCaso();
 }
 
 int main(){
