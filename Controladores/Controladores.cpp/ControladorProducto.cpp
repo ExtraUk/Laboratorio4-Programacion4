@@ -32,12 +32,13 @@ Producto* ControladorProducto::SeleccionarProducto(int codigo){
 }
 
 list<string> ControladorProducto ::ListarProductos(){ //Si se arregla esto se arregla todo
-	list<string>* aDevolver = new list<string>();
+	list<string> aDevolver;
 	for(auto const&[key, val] : productos)
 	{
 		Producto* actual = val;
-		aDevolver->push_back((val->getCodigo()+ ": " + actual->getNombre()));
+		aDevolver.push_back((to_string(val->getId())+ ": " + actual->getNombre() + ", " + to_string(val->getStock()) + " en stock"));
 	}
+	return aDevolver;
 }
 
 
