@@ -627,32 +627,35 @@ void RealizarCaso(){
                     fab->getIUsuario()->SeleccionarCliente("");
                     while(fab->getIUsuario()->getCliente() == nullptr){
                         cout << "seleccione un cliente con su nombre" << endl;
-                        cin.get();
+                        cin.clear();
                         getline(cin, seleccionado1, '\n');
                         fab->getIUsuario()->SeleccionarCliente(seleccionado1);
+                        cout << "otra vez el if lo rompe";
                         if (fab->getIUsuario()->getCliente() == nullptr) {
                             cout << "seleccion invalida, elija de nuevo";
                         }
+                        cout << "el if no lo rompe";
                     }
                     for (string aImprimir :fab->getIProducto()->ListarProductos()){
                         cout << aImprimir + "\n";
                     }
-                    cout << "ingrese '0' como codigo para finalizar la seleccion de productos";
-                    while (seleccionado1 != "0")
+                    cout << "ingrese '0' como codigo para finalizar la seleccion de productos" << endl;
+                    select2 = 1;
+                    while (select2 != 0)
                     {
-                        cout << "seleccione el codigo del producto";
+                        cout << "seleccione el codigo del producto" << endl;
                         cin >> select2;
-                        if ((select2 != 0) && (fab->getIProducto()->SeleccionarProducto(select2) == nullptr)){
-                            cout << "seleccion invalida, elija de nuevo";
+                        if ((select2 == 0) || (fab->getIProducto()->SeleccionarProducto(select2) == nullptr)){
+                            if (select2 != 0) cout << "seleccion invalida, elija de nuevo" << endl;
                         } 
                         else if (agregados.find(select2) != agregados.end()){
-                            cout << "No se puede agregar el mismo producto dos veces, elija otro producto";
+                            cout << "No se puede agregar el mismo producto dos veces, elija otro producto" << endl;
                         }
                         else{
-                            cout << "Seleccione la cantidad que desea comprar";
+                            cout << "Seleccione la cantidad que desea comprar" << endl;
                             cin >> cantidad;
                             if (cantidad > fab->getIProducto()->SeleccionarProducto(cantidad)->getStock()){
-                                cout << "No hay suficientes en stock para realizar la compra, no se agrego el producto";
+                                cout << "No hay suficientes en stock para realizar la compra, no se agrego el producto" << endl;
                             } 
                             else{
                                 agregados.insert(select2);
