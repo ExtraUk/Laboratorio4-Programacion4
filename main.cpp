@@ -221,13 +221,16 @@ static void mostrarSetString(set<string> set){
 static void CambiarFecha(){
     int dia = 0;
     while(dia > 31 || dia < 1){
+        cout << "Dia: ";
         cin >> dia;
     }
     int mes = 0;
     while(mes > 12 || mes < 1){
+        cout << "Mes: ";
         cin >> mes;
     }
     int ano = 0;
+    cout << "Año: ";
     cin >> ano;
     fechaActual = DTFecha(dia,mes,ano);
 }
@@ -235,24 +238,24 @@ static void CambiarFecha(){
 
 void RealizarCaso(){
     Fabrica * fab = new Fabrica();
-    cout <<"seleccione una opcion ingresando su numero correspondiente" << "\n";
-    cout <<"1: Alta de usuario" << "\n";
-    cout <<"2: Listado de usuarios" << "\n";
-    cout <<"3: Alta de producto" << "\n";
-    cout <<"4: Consultar producto" << "\n";
-    cout <<"5: Crear promocion" << "\n";
-    cout <<"6: Consultar promocion" << "\n";
-    cout <<"7: Realizar Compra" << "\n";
-    cout <<"8: Dejar comentario" << "\n";
-    cout <<"9: Eliminar comentario" << "\n";
-    cout <<"10: Enviar producto" << "\n";
-    cout <<"11: Expediente de Usuario" << "\n";
-    cout <<"12: Suscribirse a notificaciones" << "\n";
-    cout <<"13: Consulta de notificaciones" << "\n";
-    cout <<"14: Eliminar suscripciones" << "\n";
-    cout <<"15: Volver al menu" << "\n";
     int seleccionado = 0;
     while (seleccionado != 15){
+        cout <<"seleccione una opcion ingresando su numero correspondiente" << "\n";
+        cout <<"1: Alta de usuario" << "\n";
+        cout <<"2: Listado de usuarios" << "\n";
+        cout <<"3: Alta de producto" << "\n";
+        cout <<"4: Consultar producto" << "\n";
+        cout <<"5: Crear promocion" << "\n";
+        cout <<"6: Consultar promocion" << "\n";
+        cout <<"7: Realizar Compra" << "\n";
+        cout <<"8: Dejar comentario" << "\n";
+        cout <<"9: Eliminar comentario" << "\n";
+        cout <<"10: Enviar producto" << "\n";
+        cout <<"11: Expediente de Usuario" << "\n";
+        cout <<"12: Suscribirse a notificaciones" << "\n";
+        cout <<"13: Consulta de notificaciones" << "\n";
+        cout <<"14: Eliminar suscripciones" << "\n";
+        cout <<"15: Volver al menu" << "\n";
         cin >> seleccionado;
         switch(seleccionado){
             case 1: //Alta Usuario
@@ -260,9 +263,9 @@ void RealizarCaso(){
                     IUsuario* controladorUsuario = fab->getIUsuario();
                     cout << "Ingrese el nombre del nuevo usuario \n";
                     string nombre;
-                    getline(cin, nombre, '.');
-                    cout << "Cuack" << nombre << "Cuack";
-                    if(nombre.length() == 0){
+                    cin.get();
+                    getline(cin, nombre, '\n');
+                    if(nombre.length() == 0 || nombre == "0"){
                         throw(0);
                     }
                     Usuario* chequeo = controladorUsuario->getUsuario(nombre);
@@ -276,7 +279,7 @@ void RealizarCaso(){
                     cin >> dia;
                     cin >> mes;
                     cin >> anio;
-                    if(dia > 31 || dia << 1 || mes > 12 || mes < 1 || anio < 1){
+                    if(dia > 31 || dia < 1 || mes > 12 || mes < 1 || anio < 1){
                         throw(4);
                     }
                     DTFecha fecha = DTFecha(dia, mes, anio);
@@ -860,7 +863,7 @@ void RealizarCaso(){
                 try{
                     cout << "Ingrese el Nickname del cliente que desea suscribir" << endl;
                     string nick;
-                    cin.ignore(80, '\n');
+                    cin.get();
                     getline(cin, nick, '\n');
                     list<string>* listaVendedores = fab->getIUsuario()->ListarVendedoresNoSuscrito(nick);
                     if(listaVendedores == nullptr) throw("Error: Nickname de Cliente Invalido");
@@ -870,7 +873,6 @@ void RealizarCaso(){
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
-                        cin.ignore(80, '\n');
                         getline(cin, nick, '\n');
                         if(nick != "0"){
                             if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
@@ -879,8 +881,8 @@ void RealizarCaso(){
                     
                     fab->getIUsuario()->ConfirmarSuscripcion();
                 }
-                catch(string ex){
-                    cout << ex;
+                catch(...){
+                    cout << "Ocurrio un error" << endl;
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -911,22 +913,26 @@ void RealizarCaso(){
                 try{
                     cout << "Ingrese el Nickname del cliente que desea desuscribir" << endl;
                     string nick;
-                    cin >> nick;
-                    mostrarListaString(fab->getIUsuario()->ListarVendedoresSuscritosCliente(nick));
+                    cin.get();
+                    getline(cin, nick, '\n');
+                    list<string>* listaVend = fab->getIUsuario()->ListarVendedoresSuscritosCliente(nick);
+                    if(listaVend == nullptr) throw(0);
+                    cout << "Vendedores Suscritos por el Cliente" << endl;
+                    mostrarListaString(listaVend);
 
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a desuscribir o 0 para salir" << endl;
                     while(nick != "0"){
-                        cin >> nick;
+                        getline(cin, nick, '\n');
                         if(nick != "0"){
-                            fab->getIUsuario()->SeleccionarVendedorNotificacion(nick);
+                            if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw(1);
                         }
                     }
                     
                     fab->getIUsuario()->EliminarSuscripcion();
                 }
                 catch(string ex){
-                    cout << ex;
+                    cout << "Ocurrio un Error";
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -942,13 +948,13 @@ void RealizarCaso(){
 int main(){
     cout << "Elija una fecha para comenzar" << endl;
     CambiarFecha();
-    cout <<"seleccione una opcion ingresando su numero correspondiente" << "\n";
-    cout <<"1: realizar caso de uso" << "\n";
-    cout <<"2: cargar datos" << "\n";
-    cout <<"3: cambiar fecha" << "\n";
-    cout <<"4: detener programa" << "\n";
     while(true){
-     int seleccionado;
+        cout <<"seleccione una opcion ingresando su numero correspondiente" << "\n";
+        cout <<"1: realizar caso de uso" << "\n";
+        cout <<"2: cargar datos" << "\n";
+        cout <<"3: cambiar fecha" << "\n";
+        cout <<"4: detener programa" << "\n";
+        int seleccionado;
         cin >> seleccionado;
         switch (seleccionado) {
             case 1:

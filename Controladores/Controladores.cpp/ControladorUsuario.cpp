@@ -98,6 +98,7 @@ Cliente * ControladorUsuario::getCliente(){
 
 list<string>* ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
 	try{
+		this->vendedoresSeleccionados.clear();
 		list<string>* ret = new list<string>();
 		if(this->clientes.find(nickname) == this->clientes.end()) return nullptr;
 		this->cliente = this->clientes[nickname];
@@ -108,6 +109,7 @@ list<string>* ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
 				ret->push_back(nick);
 			}
 		}
+		return ret;
 	}
 	catch(...){
 		return nullptr;
@@ -117,7 +119,10 @@ list<string>* ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
 bool ControladorUsuario::SeleccionarVendedorNotificacion(string nickname){
 	try{
 		if(this->vendedores.end() != this->vendedores.find(nickname)){
-			this->vendedoresSeleccionados.push_back(*this->vendedores[nickname]);
+			for(auto vend: this->vendedoresSeleccionados){
+				if(vend->getNickname() == nickname) return false;
+			}
+			this->vendedoresSeleccionados.push_back(this->vendedores[nickname]);
 			return true;
 		}
 		else{
@@ -132,7 +137,7 @@ bool ControladorUsuario::SeleccionarVendedorNotificacion(string nickname){
 void ControladorUsuario::ConfirmarSuscripcion(){
 	Cliente* cliente = this->cliente;
 	for(auto vendedor: this->vendedoresSeleccionados){
-		vendedor.suscribirCliente(cliente);
+		vendedor->suscribirCliente(cliente);
 	}
 	this->vendedoresSeleccionados.clear();
 }
@@ -148,15 +153,22 @@ Cliente * ControladorUsuario::getCliente(string nickname)
 }
 
 list<string>* ControladorUsuario::ListarVendedoresSuscritosCliente(string nickname){
-	list<string>* ret = new list<string>;
-	if(this->clientes.find(nickname) == this->clientes.end()) return nullptr;
-	this->cliente = this->clientes[nickname];
-	for(auto [key,value]: this->vendedores){
-		bool suscrito = value->suscrito(this->cliente);
-		if(suscrito){
-			string nick = value->getNickname();
-			ret->push_back(nick);
+	try{
+		this->vendedoresSeleccionados.clear();
+		list<string>* ret = new list<string>;
+		if(this->clientes.find(nickname) == this->clientes.end()) return nullptr;
+		this->cliente = this->clientes[nickname];
+		for(auto [key,value]: this->vendedores){
+			bool suscrito = value->suscrito(this->cliente);
+			if(suscrito){
+				string nick = value->getNickname();
+				ret->push_back(nick);
+			}
 		}
+		return ret;
+	}
+	catch(...){
+		return nullptr;
 	}
 }
 
@@ -166,8 +178,8 @@ Vendedor* ControladorUsuario::getVendedor(){
 
 void ControladorUsuario::EliminarSuscripcion(){
 	Cliente* cliente = this->cliente;
-	for(Vendedor vendedor: this->vendedoresSeleccionados){
-		vendedor.eliminarSuscriptor(cliente);
+	for(Vendedor* vendedor: this->vendedoresSeleccionados){
+		vendedor->eliminarSuscriptor(cliente);
 	}
 	this->vendedoresSeleccionados.clear();
 }
