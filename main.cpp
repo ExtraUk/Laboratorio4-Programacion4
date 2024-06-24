@@ -354,7 +354,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 2: //Listado de Usuarios
+            case 2: //Listado de Usuarios TERMINADO
                 for (string aImprimir: fab->getIUsuario()->ListarUsuarios()){
                     cout << aImprimir + "\n";
                 }
@@ -426,9 +426,7 @@ void RealizarCaso(){
                         throw(0);
                     } else {*/
                         cout << "Seleccione un producto por su id:" << endl;
-                        for (string i : controladorProducto->ListarProductos()){
-                            cout << i << endl;
-                        }
+                        mostrarListaString(controladorProducto->ListarProductos());
                         int producto;
                         cin >> producto;
                         Producto* prod = controladorProducto->SeleccionarProducto(producto);

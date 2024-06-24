@@ -187,10 +187,10 @@ void ControladorUsuario::EliminarSuscripcion(){
 list<string> ControladorUsuario::ListarUsuarios(){
 	list<string> ListUsuarios;
 	for(auto const& [key,val]: this->clientes){
-		ListUsuarios.push_back(val->getNickname());
+		ListUsuarios.push_back(val->toString());
 	}
 	for(auto const& [key,val]: this->vendedores){
-		ListUsuarios.push_back(val->getNickname());
+		ListUsuarios.push_back(val->toString());
 	}
 	return ListUsuarios;
 }
