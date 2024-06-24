@@ -19,12 +19,11 @@ private:
     string descripcionSelec;
     map<int, int> minimasSelec;
     list<Producto*> Productos;
-    Promocion* Promocion;
 
 public:
     static ManejadorPromocion * getInstancia();
     void IngresarDatosPromo(string nombre, DTFecha validaHasta, int descuento, string descripcion, map<int, int> minimas, list<Producto*> productos);
-    bool PromosDisponible(Promocion* Promocion);
+    bool PromosDisponibles(string nombre);
     list<Promocion*> ListarPromosDisponiblesPromo(DTFecha fechaActual);
     void SeleccionarPromoDisponible(string nombre);
     list<Producto*> getProductos();
@@ -33,6 +32,7 @@ public:
     Promocion* getPromoSeleccionada();
     list<Promocion*> getPromociones();
     void ConfirmarPromocion();
+    list<string> ListarPromosDisponibles(DTFecha fechaActual);
 };
 
 #endif

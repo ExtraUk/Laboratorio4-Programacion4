@@ -27,14 +27,23 @@ void ManejadorPromocion :: IngresarDatosPromo(string nombre, DTFecha validaHasta
 	this->Productos = productos;
 }
 
-bool ManejadorPromocion::PromosDisponibles(Promocion* Promocion) {
-	for (Promo* i : Promociones) {
-        if(Promo == Promocion) {
+bool ManejadorPromocion::PromosDisponibles(string nombre) {
+	for (auto Promo : Promociones) {
+        if(Promo->getNombre() == nombre) {
 			return true;
 			break;
 		}
 	}
 	return false;
+}
+list<string> ManejadorPromocion::ListarPromosDisponibles(DTFecha fechaActual) {
+	list<string> ListaPromo;
+	for (Promocion* i : Promociones) {
+        if(i->getVigencia() >= fechaActual) {
+		    ListaPromo.push_back(i->toString()); 
+		}
+	}
+	return ListaPromo;
 }
 
 list<Promocion*> ManejadorPromocion::ListarPromosDisponiblesPromo(DTFecha fechaActual) {
@@ -66,6 +75,7 @@ list<string> ManejadorPromocion ::ListarProductosPromo() {
 	}
 	return ListaProductosPromo;
 }
+
 
 Promocion *ManejadorPromocion::getPromoSeleccionada(){
 	return PromoSeleccionada;

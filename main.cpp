@@ -529,8 +529,9 @@ void RealizarCaso(){
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
                     cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion";
-                    cin>>sele;
-                    if(PromosDisponibles(sele)){
+                    cin.ignore(80, '\n');
+                    getline(cin, sele, '\n');
+                    if(fab->getIPromocion()->PromosDisponibles(sele)){
                         fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
                         mostrarListaString(fab->getIPromocion()->ListarProductosPromo());
                         fab->getIUsuario()->SeleccionarVendedorPromo();
@@ -819,11 +820,12 @@ void RealizarCaso(){
                     string sele1;
                     fab->getIUsuario()->ListarUsuarios();
                     cout << "seleccione el nombre del Usuario: ";
-                    cin >> sele1;
+                    cin.ignore(80, '\n');
+                    getline(cin, sele1, '\n');
                     if(sele1.length() == 0){
                         throw(0);
                     }
-                    Usuario* chequeo = controladorUsuario->getUsuario(sele1);
+                    Usuario* chequeo = fab->getIUsuario()->getUsuario(sele1);
                     if(chequeo != nullptr){
                         throw(1);
                     }
@@ -842,6 +844,7 @@ void RealizarCaso(){
                         case 1:
                             cout << "Error: El nombre del Usuario es invalido" << endl;
                             break;
+                    }
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -877,17 +880,18 @@ void RealizarCaso(){
                 try{
                     string sele2;
                     cout<<"Ingrese el Nickname del Cliente: ";
-                    cin >> sele2;
-                    if(clientes.find(nickname) != clientes.end()){
+                    cin.ignore(80, '\n');
+                    getline(cin, sele2, '\n');
+                    if(fab->getIUsuario()->getClientes().find(sele2) != fab->getIUsuario()->getClientes().end()){
                         for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
                             cout << x.toString();
                         }
-                        LimpiarNotificaciones();
+                        fab->getIUsuario()->LimpiarNotificaciones();
                     }else{
                         throw(0);
                     }
                 }
-                catch(Int Error){
+                catch(int Error){
                     if(Error == 0){
                         cout << "Error: El nickname del cliente es invalido" << endl;        
                     }
