@@ -37,6 +37,8 @@ public:
     void DescartarCompra();
 
     map<int, CompraProducto*> getaComprar();
+
+    void AgregarCompra(Compra* compra);
 };
 
 #endif

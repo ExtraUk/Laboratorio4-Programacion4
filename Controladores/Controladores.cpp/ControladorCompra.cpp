@@ -13,7 +13,9 @@ ControladorCompra * ControladorCompra::getInstancia(){
 
 ControladorCompra * ControladorCompra::controladorCompra = nullptr;
 
-ControladorCompra::ControladorCompra(){}
+ControladorCompra::ControladorCompra(){
+    idactual = 0;
+}
 
 set<Compra*> ControladorCompra::getCompras()
 {
@@ -118,4 +120,9 @@ void ControladorCompra::DescartarCompra(){
 map<int, CompraProducto*> ControladorCompra :: getaComprar()
 {
     return this->aComprar;
+}
+
+void ControladorCompra::AgregarCompra(Compra* compra){
+    this->idactual++;
+    this->Compras.insert({idactual, compra});
 }

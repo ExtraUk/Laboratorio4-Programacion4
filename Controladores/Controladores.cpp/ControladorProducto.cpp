@@ -31,7 +31,7 @@ Producto* ControladorProducto::SeleccionarProducto(int codigo){
 	}
 }
 
-list<string>* ControladorProducto ::ListarProductos(){
+list<string> ControladorProducto ::ListarProductos(){
 	list<string>* aDevolver = new list<string>();
 	for(auto [key, val] : productos)
 	{

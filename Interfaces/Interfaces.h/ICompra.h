@@ -21,6 +21,7 @@ class ICompra
     virtual void ConfirmarCompra(DTDetalleCompra Detalles, Cliente* cliente) = 0;
     virtual void DescartarCompra() = 0;
     virtual map<int, CompraProducto*> getaComprar() = 0;
+    virtual void AgregarCompra(Compra* compra) = 0;
 };
 
 #endif

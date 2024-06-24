@@ -13,6 +13,7 @@ private:
     int id;
     float precioTotal;
     DTFecha fechaCompra;
+    Cliente * cliente;
     map<int, CompraProducto*>* Productos;
 public:
     Compra();
@@ -31,6 +32,8 @@ public:
     map<int, CompraProducto*> getProductos();
 
     string toString();
+
+    Cliente * getCliente();
 };
 
 #endif

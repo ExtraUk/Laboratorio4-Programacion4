@@ -1,7 +1,9 @@
 #include "../Controladores.h/ControladorComentario.h"
 
 
-ControladorComentario::ControladorComentario(){}
+ControladorComentario::ControladorComentario(){
+	this->cantidad = 25;
+}
 
 ControladorComentario * ControladorComentario::controladorComentario = nullptr;
 
@@ -86,13 +88,15 @@ Comentario * ControladorComentario::ComentarioNuevo(string texto, DTFecha fecha,
 
 list<string> ControladorComentario::Comentarios(int codigo)
 {
+	cout << "cuack" << endl;
 	list<string> aDevolver;
-	Fabrica * fab = new Fabrica();
 	for(auto const&[key,val]:this->comentarios)
 	{
-		if (val->getProducto() == fab->getIProducto()->SeleccionarProducto(codigo))
+		cout << val->getTexto() << endl;
+		if (val->getProducto()->getCodigo() == codigo)
 		{
-			aDevolver.push_back(to_string(val->getId()) + val->getTexto());
+			cout << to_string(val->getId()) + ": " + val->getTexto() << endl;
+			aDevolver.push_back(to_string(val->getId()) + ": " + val->getTexto());
 		}
 	}
 	return aDevolver;

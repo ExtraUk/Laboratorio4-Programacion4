@@ -8,6 +8,7 @@ Compra::Compra(int id, map<int, CompraProducto*>* aComprar, DTDetalleCompra deta
     this->fechaCompra = detalles.getFecha();
     this->precioTotal = detalles.getPrecio();
     this->Productos = aComprar;
+    this->cliente = cliente;
 }
 
 Compra::Compra(){}
@@ -44,4 +45,8 @@ string Compra::toString(){
         ret += value->getProducto()->toString() + ", " + to_string(value->getCantidad()) + "\n";
     }
     return ret;
+}
+
+Cliente * Compra::getCliente(){
+    return this->cliente;
 }

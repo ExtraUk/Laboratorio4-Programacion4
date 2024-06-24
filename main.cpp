@@ -208,6 +208,16 @@ static void CargarDatos(){ //Faltan promociones y compras
     detalle9.setFecha(DTFecha(15,5,2024));
     detalle9.sumarPrecio((compraProd9->getCantidad()*compraProd9->getPrecio()));
     Compra * compra9 = new Compra(9, compraProds9, detalle9, cli5);
+
+    controladorCompra->AgregarCompra(compra1);
+    controladorCompra->AgregarCompra(compra2);
+    controladorCompra->AgregarCompra(compra3);
+    controladorCompra->AgregarCompra(compra4);
+    controladorCompra->AgregarCompra(compra5);
+    controladorCompra->AgregarCompra(compra6);
+    controladorCompra->AgregarCompra(compra7);
+    controladorCompra->AgregarCompra(compra8);
+    controladorCompra->AgregarCompra(compra9);
 }
 
 
@@ -362,7 +372,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 3: //Alta de Producto
+            case 3: //Alta de Producto TERMINADO?
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
                     IUsuario* controladorUsuario = fab->getIUsuario();
@@ -381,13 +391,17 @@ void RealizarCaso(){
                     }
                     cout << "Inserte el nombre del producto" << endl;
                     string NomProd;
-                    cin >> NomProd;
+                    cin.get();
+                    getline(cin, NomProd, '\n');
+                    if(NomProd == "0") throw(5);
                     cout << "Inserte el precio" << endl;
                     int precio;
                     cin >> precio;
+                    if(precio <= 0) throw(3);
                     cout << "Inserte la cantidad del producto" << endl;
                     int cant;
                     cin >> cant;
+                    if(precio <= 0) throw(4);
                     cout << "Inserte la descripcion del producto" << endl;
                     string descr;
                     cin.get();
@@ -417,16 +431,25 @@ void RealizarCaso(){
                     if(numerror = 1){
                         cout << "ERROR: No hay vendedores en el sistema" << endl;
                     }
-                    if(numerror = 2){
+                    else if(numerror = 2){
                         cout << "ERROR: El vendedor seleccionado no existe" << endl;
+                    }
+                    else if(numerror = 3){
+                        cout << "ERROR: El precio es negativo" << endl;
+                    }
+                    else if(numerror = 4){
+                        cout << "ERROR: La cantidad es negativa" << endl;
+                    }
+                    else{
+                        cout << "ERROR";
                     }
                 }
             case 4: //Consulta Producto LE FALTA
                 try{
                     IProducto* controladorProducto = fab->getIProducto();
                     //map<int, Producto*> productos = controladorProducto->getProductos();
-                    list<string>* productos = controladorProducto->ListarProductos(); //
-                    if (productos->size() == 0){ //if (productos.size() == 0){ 
+                    list<string> productos = controladorProducto->ListarProductos(); //
+                    if (productos.size() == 0){ //if (productos.size() == 0){ 
                         throw(0);
                     } else {
                         cout << "Seleccione un producto por su id:" << endl;
@@ -568,7 +591,7 @@ void RealizarCaso(){
                     mostrarListaString(fab->getIPromocion()->ListarPromosDisponibles(fechaActual));
                     string sele;
                     cout<<"Si desea visualizar la informacion de la promocion ingrese el nombre de la promocion:  ";
-                    cin.ignore(80, '\n');
+                    cin.get();
                     getline(cin, sele, '\n');
                     if(fab->getIPromocion()->PromosDisponibles(sele)){
                         fab->getIPromocion()->SeleccionarPromoDisponible(sele); 
@@ -587,7 +610,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 7:  //Realizar compra (excepciones a agregar, que pasa si no existe ningun cliente, que pasa si no existe ningun producto)
+            case 7:  //Realizar compra 
                 try{
                     if ((fab->getIUsuario()->CantidadClientes() == 0) || (fab->getIProducto()->CantidadProductos() == 0)){
                         throw("Datos insuficientes");
@@ -602,14 +625,15 @@ void RealizarCaso(){
                     }
                     fab->getIUsuario()->SeleccionarCliente("");
                     while(fab->getIUsuario()->getCliente() == nullptr){
-                        cout << "seleccione un cliente con su nombre";
-                        getline(cin, seleccionado1, '.');
+                        cout << "seleccione un cliente con su nombre" << endl;
+                        cin.get();
+                        getline(cin, seleccionado1, '\n');
                         fab->getIUsuario()->SeleccionarCliente(seleccionado1);
                         if (fab->getIUsuario()->getCliente() == nullptr) {
                             cout << "seleccion invalida, elija de nuevo";
                         }
                     }
-                    for (string aImprimir :*fab->getIProducto()->ListarProductos()){
+                    for (string aImprimir :fab->getIProducto()->ListarProductos()){
                         cout << aImprimir + "\n";
                     }
                     cout << "ingrese '0' como codigo para finalizar la seleccion de productos";
@@ -667,7 +691,7 @@ void RealizarCaso(){
                     }
                 }
                 break;
-            case 8: //Dejar comentario
+            case 8: //Dejar comentario NO TERMINADO
                 try
                 {
                     string seleccionado1;
@@ -687,21 +711,21 @@ void RealizarCaso(){
                     Usuario* SelecUser = nullptr;
                     while(SelecUser == nullptr){
                         cout << "ingrese el usuario que desea seleccionar " << endl;
-                        cin.ignore(80, '\n');
+                        cin.get(); //TO-DO ESTO NO ANDA CUANDO LE ERRA UNA VEZ AL NOMBRE
                         getline(cin, seleccionado1, '\n');
                         SelecUser = fab->getIUsuario()->getUsuario(seleccionado1);
                         if (SelecUser == nullptr)
                         {
-                            cout << "seleccion invalida, elija de nuevo";
+                            cout << "seleccion invalida, elija de nuevo \n";
                         }
                     }
-                    for(auto const& [key,val] :fab->getIProducto()->getProductos())
+                    for(auto [key,val] :fab->getIProducto()->getProductos())
                     {
-                        cout << val->getId() + ": " + val->getNombre() << "\n";
+                        cout << to_string(val->getId()) + ": " + val->getNombre() << endl;
                     }
                     Producto* SelecProd = nullptr;
                     while(SelecProd == nullptr){
-                        cout << "ingrese el id del producto que desea seleccionar";
+                        cout << "ingrese el id del producto que desea seleccionar" << endl;
                         cin >> selec3;
                         SelecProd = fab->getIProducto()->SeleccionarProducto(selec3);
                         if (SelecProd == nullptr)
@@ -709,12 +733,13 @@ void RealizarCaso(){
                             cout << "seleccion invalida, elija de nuevo";
                         }
                     }
-                    cout << "Desea dejar un comentario en el producto (1) o responder a un comentario de este (2)";
+                    cout << "Desea dejar un comentario en el producto (1) o responder a un comentario de este (2)" << endl;
                     cin >> selec4;
+                    cout << to_string(selec4) << endl;
                     switch (selec4)
                     {
                     case 1:{
-                        cout << "ingrese su comentario";
+                        cout << "ingrese su comentario" << endl;
                         cin.ignore(80, '\n');
                         getline(cin, seleccionado2, '\n');
                         fab->getIComentario()->ComentarioNuevo(seleccionado2,fechaActual,SelecProd,SelecUser);
@@ -722,6 +747,7 @@ void RealizarCaso(){
                     }
                     case 2:{
                         list<string> ComentariosProd = fab->getIComentario()->Comentarios(selec3);
+                        cout << ComentariosProd.size() << endl;
                         if (ComentariosProd.size() == 0){
                             throw("No comentarios");
                         }
@@ -758,11 +784,14 @@ void RealizarCaso(){
                         cout << "ERROR: No existen Productos en el sistema" << endl;
                     }
                     else if(a == "No Comentarios"){
-                        cout << "ERROR: No hay comentarios en el producto seleccionado";
+                        cout << "ERROR: No hay comentarios en el producto seleccionado" << endl;
                     }
                     else if(a == "opcion"){
-                        cout << "ERROR: Se selecciono una opción fuera de limites";
+                        cout << "ERROR: Se selecciono una opción fuera de limites" << endl;
                     }
+                }
+                catch(...){
+                    cout << "ERROR" << endl;
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
@@ -821,7 +850,7 @@ void RealizarCaso(){
                         throw(2);
                     }
                     cout << "Elija la id de un producto de la lista provista" << endl;
-                    for(string i: *controladorProducto->ListarProductos()){
+                    for(string i: controladorProducto->ListarProductos()){
                         cout << i << endl;
                     }
                     int idActual;
@@ -864,12 +893,12 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n";
                 break;
-            case 11: //Expediente Usuario
+            case 11: //Expediente Usuario TERMINADO
                 try{
                     string sele1;
                     mostrarListaString(fab->getIUsuario()->ListarUsuarios());
                     cout << "\n Seleccione el nombre del Usuario: ";
-                    cin.ignore(10, '\n');
+                    cin.get();
                     getline(cin, sele1, '\n');
                     Usuario* chequeo = fab->getIUsuario()->getUsuario(sele1);
                     if(chequeo == nullptr){

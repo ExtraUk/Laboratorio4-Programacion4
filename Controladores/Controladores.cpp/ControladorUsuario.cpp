@@ -83,11 +83,17 @@ void ControladorUsuario::SeleccionarUsuario(string nickname) {
 }
 
 void ControladorUsuario::SeleccionarCliente(string nickname) {
-	this->cliente = nullptr;
-	if(getCliente(nickname) != nullptr){
-		this->cliente = getCliente(nickname);
+	try{
+		this->cliente = nullptr;
+		Cliente * cli = this->getCliente(nickname);
+		if(cli != nullptr){
+			this->cliente = cli;
+		}
+		else{
+			this->cliente = nullptr;
+		}
 	}
-	else{
+	catch(...){
 		this->cliente = nullptr;
 	}
 }
@@ -144,10 +150,15 @@ void ControladorUsuario::ConfirmarSuscripcion(){
 
 Cliente * ControladorUsuario::getCliente(string nickname)	
 {
-	if(clientes.find(nickname) != clientes.end()){
-		return clientes[nickname];
+	try{
+		if(this->clientes.find(nickname) != this->clientes.end()){
+			return this->clientes[nickname];
+		}
+		else{
+			return nullptr;
+		}
 	}
-	else{
+	catch(...){
 		return nullptr;
 	}
 }
@@ -255,11 +266,13 @@ string ControladorUsuario::InfoVendedor(DTFecha fechaActual){
 
 string ControladorUsuario::InfoCliente(){  
     string infoCliente;
-	if(cliente->getCompras().size() != 0){
-		infoCliente += "Compras Realizadas: ";
-		for(auto comp : cliente->getCompras()){
+	Fabrica * fab = new Fabrica();
+	infoCliente += "Compras Realizadas: ";
+	for(auto comp : fab->getICompra()->getCompras()){
+		if(comp->getCliente()->getNickname() == cliente->getNickname()){
 			infoCliente += comp->toString() + "\n";
 		}
+		
 	}
 	infoCliente = "Informacion del Cliente: " + this->cliente->toString() + "\n" + infoCliente;
     return infoCliente;
