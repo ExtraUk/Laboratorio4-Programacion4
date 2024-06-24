@@ -652,7 +652,7 @@ void RealizarCaso(){
                             cout << "No se puede agregar el mismo producto dos veces, elija otro producto" << endl;
                         }
                         else{
-                            cout << "Seleccione la cantidad que desea comprar" << endl;
+                            cout << "Seleccione la cantidad que desea comprar" << "\n";
                             cin >> cantidad;
                             if (cantidad > fab->getIProducto()->SeleccionarProducto(cantidad)->getStock()){
                                 cout << "No hay suficientes en stock para realizar la compra, no se agrego el producto" << endl;

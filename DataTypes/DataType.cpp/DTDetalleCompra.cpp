@@ -37,6 +37,6 @@ list<string> DTDetalleCompra::ImprimirDetalles() {
         ret.push_back(producto + ", ");
     }
     ret.push_back("fecha de compra: " + this->FechaCompra.toString());
-    ret.push_back("precio: " + this->PrecioTotal);
+    ret.push_back("precio: " + to_string(this->PrecioTotal));
     return ret;
 }

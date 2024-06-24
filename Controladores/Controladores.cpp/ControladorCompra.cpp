@@ -88,6 +88,7 @@ DTDetalleCompra ControladorCompra::getDetalles(DTFecha fechaActual){
             }
         }
     }
+    cout << aDevolver.getPrecio();
     for (auto const& [key, val] :aComprar)
     {
         CompraProducto * actual = val;
