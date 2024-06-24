@@ -90,8 +90,6 @@ class IUsuario {
 
     virtual Vendedor* SeleccionarVendedorPromo() = 0;
 
-    virtual void LimpiarNotificaciones() = 0;
-
     virtual list<string> ListarUsuariosNombre() = 0;
 };
 

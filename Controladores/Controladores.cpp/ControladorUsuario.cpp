@@ -293,12 +293,9 @@ string ControladorUsuario::InfoCliente(){
 list<DTNotificacion> ControladorUsuario :: ConsultaNotificaciones(string nickname){ 
 	cliente  = clientes[nickname];
     list<DTNotificacion> lista = cliente->getNotificaciones();
-    cliente->getNotificaciones().clear();
     return lista;    
 }
-void ControladorUsuario :: LimpiarNotificaciones(){
-	cliente->getNotificaciones().clear();
-}
+
 
 
 map<string,Cliente*> ControladorUsuario::getClientes()

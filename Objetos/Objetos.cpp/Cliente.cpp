@@ -35,3 +35,7 @@ list<Compra*> Cliente::getCompras()
 list<DTNotificacion> Cliente::getNotificaciones(){
 	return this->notificaciones;
 }
+
+void  Cliente :: LimpiarNotificaciones(){
+	this->notificaciones.clear();
+}

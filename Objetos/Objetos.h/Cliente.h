@@ -42,6 +42,7 @@ public:
     list<DTNotificacion> getNotificaciones();
 
     string getNickname();
+    void LimpiarNotificaciones();
 };
 
 #endif

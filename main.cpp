@@ -971,8 +971,8 @@ void RealizarCaso(){
                     if(fab->getIUsuario()->getClientes().find(sele2) != fab->getIUsuario()->getClientes().end()){
                         if(fab->getIUsuario()->ConsultaNotificaciones(sele2).size() != 0){
                              for(auto x: fab->getIUsuario()->ConsultaNotificaciones(sele2)){
-                            cout << x.toString();}  
-                            fab->getIUsuario()->LimpiarNotificaciones(); 
+                                    cout << x.toString();}  
+                            fab->getIUsuario()->getCliente()->LimpiarNotificaciones(); 
                         }else{
                             cout<<"El cliente no cuenta con Notificaciones. \n";
                         }
