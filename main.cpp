@@ -497,6 +497,11 @@ void RealizarCaso(){
                         cout << "Seleccione un producto por su id" << endl;
                         int id;
                         cin >> id;
+                        bool valido = false;
+                        for (DTProducto p : controladorUsuario->ObtenerProductosVendedor(vendedor)){
+                            if(p.getCodigo() == id) valido = true;
+                        }
+                        if(!valido) throw(4);
                         cout << "Seleccione la cantidad minima" << endl;
                         int cantmin;
                         cin >> cantmin;
@@ -531,6 +536,8 @@ void RealizarCaso(){
                         cout << "El vendedor no tiene productos" << endl;
                     } else if (numError == 3){
                         cout << "El nombre de la promocion ya esta en uso" << endl;
+                    } else if(numError == 4){
+                        cout << "El producto no pertenece al vendedor seleccionado" << endl;
                     }
                 }
                 cout <<"seleccione otro caso" << "\n";
@@ -881,6 +888,9 @@ void RealizarCaso(){
                     
                     fab->getIUsuario()->ConfirmarSuscripcion();
                 }
+                catch(string ex){
+                    cout << ex;
+                }
                 catch(...){
                     cout << "Ocurrio un error" << endl;
                 }
@@ -946,6 +956,7 @@ void RealizarCaso(){
 }
 
 int main(){
+    bool cargarDatos = true;
     cout << "Elija una fecha para comenzar" << endl;
     CambiarFecha();
     while(true){
@@ -961,7 +972,10 @@ int main(){
                 RealizarCaso();
                 break;
             case 2:
-                CargarDatos();
+                if(cargarDatos){
+                    CargarDatos();
+                    cargarDatos = false;
+                }
                 break;
             case 3:
                 CambiarFecha();
