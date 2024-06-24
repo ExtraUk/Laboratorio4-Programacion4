@@ -40,7 +40,7 @@ public:
     Comentario* getComentario(int idComentario); //hecho
     Comentario * ComentarioNuevo(string texto, DTFecha fecha, Producto * prod, Usuario * comentador);
     list<string> Comentarios(int codigo);
-    void seleccionarComentario(int id);
+    Comentario* seleccionarComentario(int id);
 };
 
 #endif

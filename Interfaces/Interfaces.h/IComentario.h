@@ -22,6 +22,6 @@ class IComentario {
         virtual Comentario* getComentario(int idComentario) = 0; //hecho
         virtual Comentario * ComentarioNuevo(string texto, DTFecha fecha, Producto * prod, Usuario * comentador) = 0;
         virtual list<string> Comentarios (int codigo) = 0;
-        virtual void seleccionarComentario(int id) = 0;
+        virtual Comentario* seleccionarComentario(int id) = 0;
 };
 #endif

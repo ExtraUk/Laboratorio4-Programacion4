@@ -723,26 +723,26 @@ void RealizarCaso(){
                             cout << "seleccion invalida, elija de nuevo \n";
                         }
                     }
-                    for(auto [key,val] :fab->getIProducto()->getProductos())
-                    {
-                        cout << to_string(val->getId()) + ": " + val->getNombre() << endl;
-                    }
-                    Producto* SelecProd = nullptr;
-                    while(SelecProd == nullptr){
-                        cout << "ingrese el id del producto que desea seleccionar" << endl;
-                        cin >> selec3;
-                        SelecProd = fab->getIProducto()->SeleccionarProducto(selec3);
-                        if (SelecProd == nullptr)
-                        {
-                            cout << "seleccion invalida, elija de nuevo";
-                        }
-                    }
-                    cout << "Desea dejar un comentario en el producto (1) o responder a un comentario de este (2)" << endl;
+                    cout << "Desea dejar un comentario en un producto (1) o responder a un comentario(2)" << endl;
                     cin >> selec4;
                     cout << to_string(selec4) << endl;
                     switch (selec4)
                     {
                     case 1:{
+                        for(auto [key,val] :fab->getIProducto()->getProductos())
+                        {
+                            cout << to_string(val->getId()) + ": " + val->getNombre() << endl;
+                        }
+                        Producto* SelecProd = nullptr;
+                        while(SelecProd == nullptr){
+                            cout << "ingrese el id del producto que desea seleccionar" << endl;
+                            cin >> selec3;
+                            SelecProd = fab->getIProducto()->SeleccionarProducto(selec3);
+                            if (SelecProd == nullptr)
+                            {
+                                cout << "seleccion invalida, elija de nuevo";
+                            }
+                        }
                         cout << "ingrese su comentario" << endl;
                         cin.ignore(80, '\n');
                         getline(cin, seleccionado2, '\n');
@@ -750,28 +750,26 @@ void RealizarCaso(){
                         break;
                     }
                     case 2:{
-                        list<string> ComentariosProd = fab->getIComentario()->Comentarios(selec3);
-                        cout << ComentariosProd.size() << endl;
-                        if (ComentariosProd.size() == 0){
+                        if (fab->getIComentario()->ListarComentarios().size() == 0){
                             throw("No comentarios");
                         }
-                        for(string aListar: ComentariosProd){
-                            cout << "aListar" << "\n";
+                        for(string aListar: fab->getIComentario()->ListarComentarios()){
+                            cout << aListar << "\n";
                         }
                         Comentario* SelecCom = nullptr;
                         while (SelecCom == nullptr){
-                            cout << "Seleccione el id del comentario al que desea responder";
+                            cout << "Seleccione el id del comentario al que desea responder" << endl;
                             cin >> selec4;
-                            SelecCom = fab->getIComentario()->getComentario(selec4);
+                            SelecCom = fab->getIComentario()->seleccionarComentario(selec4);
                             if (SelecCom == nullptr)
                             {
                                 cout << "seleccion invalida, elija de nuevo";
                             }
                         }
-                        cout << "ingrese su respuesta";
-                        cin.ignore(80, '\n');
+                        cout << "ingrese su respuesta" << endl;
+                        cin.get();
                         getline(cin, seleccionado2, '\n');
-                        fab->getIComentario()->Responder(seleccionado2, fab->getIProducto()->SeleccionarProducto(selec3), SelecCom, fechaActual, SelecUser);
+                        fab->getIComentario()->Responder(seleccionado2, SelecCom->getProducto(), SelecCom, fechaActual, SelecUser);
                         break;
                     }
                     default:

@@ -27,18 +27,13 @@ list<string> ControladorComentario::ListarComentariosUsuario(Usuario* usu)
 
 list<string> ControladorComentario::ListarComentarios()
 {
-	/*set<string> aDevolver; 
+	list<string> aDevolver; 
 	Fabrica * fab = new Fabrica();
 	IProducto * controladorProd = fab->getIProducto();
-	for (Comentario comentario : this->comentarios)
+	for (auto [key, val] : comentarios)
 	{
-		if (comentario.getProducto() == controladorProd.getProdSeleccionado())
-		{
-			aDevolver.add(comentario.getId() + ":" + comentario.getTexto());
-		}
+		aDevolver.push_back(to_string(val->getId()) + ":" + val->getTexto());
 	}
-	return aDevolver;*/
-	list<string> aDevolver;
 	return aDevolver;
 }
 
@@ -104,7 +99,7 @@ list<string> ControladorComentario::Comentarios(int codigo)
 	return aDevolver;
 }
 
-void ControladorComentario::seleccionarComentario(int id)
+Comentario* ControladorComentario::seleccionarComentario(int id)
 {
 	for (auto const&[key,val] : this->comentarios){
 		if(key == id){
@@ -112,4 +107,5 @@ void ControladorComentario::seleccionarComentario(int id)
 			break;
 		}
 	}
+	return comentarioSeleccionado;
 }
