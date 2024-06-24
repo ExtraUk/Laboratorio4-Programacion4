@@ -535,6 +535,7 @@ void RealizarCaso(){
                         for (DTProducto p : controladorUsuario->ObtenerProductosVendedor(vendedor)){
                             if(p.getCodigo() == id) valido = true;
                         }
+                        valido = valido && !manejadorPromocion->estaEnPromocion(id); //Producto no en varias promociones a la vez
                         if(!valido) throw(4);
                         cout << "Seleccione la cantidad minima" << endl;
                         int cantmin;

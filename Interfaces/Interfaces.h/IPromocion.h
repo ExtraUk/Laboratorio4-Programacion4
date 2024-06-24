@@ -19,5 +19,6 @@ class IPromocion{
         virtual list<Promocion*> ListarPromosDisponiblesPromo(DTFecha fechaActual) = 0;
         virtual void ConfirmarPromocion() = 0;
         virtual list<string> ListarPromosDisponibles(DTFecha fechaActual) = 0;
+        virtual bool estaEnPromocion(int id) = 0;
 };
 #endif

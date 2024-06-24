@@ -123,3 +123,12 @@ void ManejadorPromocion::ConfirmarPromocion() { // arreglar
         cli->notificar(noti);
     }
 }
+
+bool ManejadorPromocion::estaEnPromocion(int id){
+	for(auto promo: this->Promociones){
+		for(auto prod: promo->getProductos()){
+			if(prod->getCodigo() == id) return true;
+		}
+	}
+	return false;
+}

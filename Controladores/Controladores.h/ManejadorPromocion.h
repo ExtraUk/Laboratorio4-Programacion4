@@ -33,6 +33,7 @@ public:
     list<Promocion*> getPromociones();
     void ConfirmarPromocion();
     list<string> ListarPromosDisponibles(DTFecha fechaActual);
+    bool estaEnPromocion(int id);
 };
 
 #endif
