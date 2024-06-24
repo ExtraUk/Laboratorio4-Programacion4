@@ -10,6 +10,10 @@ Vendedor::Vendedor(string nickname, DTFecha fechaN, string contr, string RUT){
 	this->RUT = RUT;
 }
 
+string Vendedor::getNickname(){
+	return this->nickname;
+} 
+
 string Vendedor::toString(){
 	return this->nickname + ", " + this->fechaNacimiento.toString() + ", " + this->RUT+ ".";
 }

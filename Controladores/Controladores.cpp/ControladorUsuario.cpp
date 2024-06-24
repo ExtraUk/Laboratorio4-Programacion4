@@ -206,6 +206,17 @@ list<string> ControladorUsuario::ListarUsuarios(){
 	return ListUsuarios;
 }
 
+list<string> ControladorUsuario::ListarUsuariosNombre(){
+	list<string> ListUsuarios;
+	for(auto const& [key,val]: this->clientes){
+		ListUsuarios.push_back(val->getNickname());
+	}
+	for(auto const& [key,val]: this->vendedores){
+		ListUsuarios.push_back(val->getNickname());
+	}
+	return ListUsuarios;
+}
+
 int ControladorUsuario::CantidadUsuarios()
 {
 	return this->clientes.size() + this->vendedores.size();

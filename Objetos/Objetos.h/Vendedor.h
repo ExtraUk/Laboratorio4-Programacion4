@@ -25,6 +25,7 @@ public:
     bool vendeProducto(Producto* prod);
     string toString(); //hecho
     list<IObserver*> getClientesSuscritos();
+    string getNickname();
 };
 
 #endif
