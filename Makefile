@@ -26,7 +26,7 @@ DTDetalleCompra.o: DataTypes/DataType.cpp/DTDetalleCompra.cpp DataTypes/DataType
 Usuario.o: Objetos/Objetos.cpp/Usuario.cpp Objetos/Objetos.h/Usuario.h DTFecha.o
 	g++ -c -o Usuario.o Objetos/Objetos.cpp/Usuario.cpp
 IObserver.o: Interfaces/Interfaces.h/IObserver.h 
-	g++ -c -o IObserver.o Interfaces\Interfaces.h/IObserver.h
+	g++ -c -o IObserver.o Interfaces/Interfaces.h/IObserver.h
 Producto.o: Objetos/Objetos.cpp/Producto.cpp Objetos/Objetos.h/Producto.h TipoObjeto.o
 	g++ -c -o Producto.o Objetos/Objetos.cpp/Producto.cpp
 CompraProducto.o: Objetos/Objetos.cpp/CompraProducto.cpp Objetos/Objetos.h/CompraProducto.h Producto.o

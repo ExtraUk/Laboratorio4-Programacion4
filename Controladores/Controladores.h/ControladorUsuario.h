@@ -59,9 +59,9 @@ public:
     void SeleccionarUsuario(string nickname); //hecha
 
     //lista los vendedores a los que no esta suscrito el cliente ingresado
-    list<string> ListarVendedoresNoSuscrito(string nickname); //✔
+    list<string>* ListarVendedoresNoSuscrito(string nickname); //✔
 
-    void SeleccionarVendedorNotificacion(string nickname); //✔
+    bool SeleccionarVendedorNotificacion(string nickname); //✔
 
     //
     void ConfirmarSuscripcion(); //✔
@@ -73,7 +73,7 @@ public:
 
     //set<DTNotificacion> ListarNotificaciones(string nickname);
 
-    list<string> ListarVendedoresSuscritosCliente(string nickname); //✔
+    list<string>* ListarVendedoresSuscritosCliente(string nickname); //✔
 
     void EliminarSuscripcion(); //✔
 

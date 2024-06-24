@@ -15,6 +15,12 @@ static void mostrarListaString(list<string> lista){
     }
 }
 
+static void mostrarListaString(list<string>* lista){
+    for(string str: *lista){
+        cout << str << endl;
+    }
+}
+
 static void CargarDatos(){ //Faltan promociones y compras
     Fabrica * fab = new Fabrica();
     IUsuario * controladorUsuario = fab->getIUsuario();
@@ -252,9 +258,10 @@ void RealizarCaso(){
             case 1: //Alta Usuario
                 try{
                     IUsuario* controladorUsuario = fab->getIUsuario();
-                    cout << "Ingrese el nombre del nuevo usuario" << endl;
+                    cout << "Ingrese el nombre del nuevo usuario \n";
                     string nombre;
-                    cin >> nombre;
+                    getline(cin, nombre, '.');
+                    cout << "Cuack" << nombre << "Cuack";
                     if(nombre.length() == 0){
                         throw(0);
                     }
@@ -459,7 +466,7 @@ void RealizarCaso(){
                     cin >> dia;
                     cin >> mes;
                     cin >> ano;
-                    if(dia > 31 || dia << 1 || mes > 12 || mes < 1 || ano < 1){
+                    if(dia > 31 || dia < 1 || mes > 12 || mes < 1 || ano < 1){
                         throw(0);
                     }
                     DTFecha fecha = DTFecha(dia, mes, ano);
@@ -555,7 +562,7 @@ void RealizarCaso(){
                     fab->getIUsuario()->SeleccionarCliente("");
                     while(fab->getIUsuario()->getCliente() == nullptr){
                         cout << "seleccione un cliente con su nombre";
-                        cin >> seleccionado1;
+                        getline(cin, seleccionado1, '.');
                         fab->getIUsuario()->SeleccionarCliente(seleccionado1);
                         if (fab->getIUsuario()->getCliente() == nullptr) {
                             cout << "seleccion invalida, elija de nuevo";
@@ -638,8 +645,9 @@ void RealizarCaso(){
                     }
                     Usuario* SelecUser = nullptr;
                     while(SelecUser == nullptr){
-                        cout << "ingrese el usuario que desea seleccionar";
-                        cin >> seleccionado1;
+                        cout << "ingrese el usuario que desea seleccionar " << endl;
+                        cin.ignore(80, '\n');
+                        getline(cin, seleccionado1, '\n');
                         SelecUser = fab->getIUsuario()->getUsuario(seleccionado1);
                         if (SelecUser == nullptr)
                         {
@@ -666,7 +674,8 @@ void RealizarCaso(){
                     {
                     case 1:{
                         cout << "ingrese su comentario";
-                        cin >> seleccionado2;
+                        cin.ignore(80, '\n');
+                        getline(cin, seleccionado2, '\n');
                         fab->getIComentario()->ComentarioNuevo(seleccionado2,fechaActual,SelecProd,SelecUser);
                         break;
                     }
@@ -689,7 +698,8 @@ void RealizarCaso(){
                             }
                         }
                         cout << "ingrese su respuesta";
-                        cin >> seleccionado2;
+                        cin.ignore(80, '\n');
+                        getline(cin, seleccionado2, '\n');
                         fab->getIComentario()->Responder(seleccionado2, fab->getIProducto()->SeleccionarProducto(selec3), SelecCom, fechaActual, SelecUser);
                         break;
                     }
@@ -839,15 +849,20 @@ void RealizarCaso(){
                 try{
                     cout << "Ingrese el Nickname del cliente que desea suscribir" << endl;
                     string nick;
-                    cin >> nick;
-                    mostrarListaString(fab->getIUsuario()->ListarVendedoresNoSuscrito(nick));
+                    cin.ignore(80, '\n');
+                    getline(cin, nick, '\n');
+                    list<string>* listaVendedores = fab->getIUsuario()->ListarVendedoresNoSuscrito(nick);
+                    if(listaVendedores == nullptr) throw("Error: Nickname de Cliente Invalido");
+                    cout << "Vendedores No Suscritos por el Cliente" << endl;
+                    mostrarListaString(listaVendedores);
 
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
-                        cin >> nick;
+                        cin.ignore(80, '\n');
+                        getline(cin, nick, '\n');
                         if(nick != "0"){
-                            fab->getIUsuario()->SeleccionarVendedorNotificacion(nick);
+                            if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
                         }
                     }
                     
