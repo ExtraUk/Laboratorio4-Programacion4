@@ -230,7 +230,7 @@ static void CambiarFecha(){
         cin >> mes;
     }
     int ano = 0;
-    cout << "Año: ";
+    cout << "Anio: ";
     cin >> ano;
     fechaActual = DTFecha(dia,mes,ano);
 }
@@ -272,7 +272,7 @@ void RealizarCaso(){
                     if(chequeo != nullptr){
                         throw(1);
                     }
-                    cout << "Ingrese la fecha, primero ingrese el día, luego el mes y luego el año" << endl;
+                    cout << "Ingrese su fecha de nacimiento, primero ingrese el dia, luego el mes y luego el anio" << endl;
                     int dia;
                     int mes;
                     int anio;
@@ -283,7 +283,7 @@ void RealizarCaso(){
                         throw(4);
                     }
                     DTFecha fecha = DTFecha(dia, mes, anio);
-                    cout << "Inserte la contraseña" << endl;
+                    cout << "Inserte la contrasenia" << endl;
                     string contrasena;
                     cin >> contrasena;
                     if(contrasena.length() < 6){
@@ -316,7 +316,7 @@ void RealizarCaso(){
                         break;
                         }
                         case 2: {
-                        cout << "Ingrese el número de RUT" << endl;
+                        cout << "Ingrese el numero de RUT" << endl;
                         string RUT;
                         cin >> RUT;
                         if(RUT.length() != 12){
@@ -388,7 +388,8 @@ void RealizarCaso(){
                     cin >> cant;
                     cout << "Inserte la descripcion del producto" << endl;
                     string descr;
-                    cin >> descr;
+                    cin.get();
+                    getline(cin, descr, '\n');
                     cout << "Seleccione el tipo de producto de la lista proporcionada" << endl;
                     cout << "1: Ropa" << endl;
                     cout << "2: Electrodomestico" << endl;
@@ -875,6 +876,7 @@ void RealizarCaso(){
                     nick = "1";
                     cout << "Ingrese el Nickname del vendedor a suscribir o 0 para salir" << endl;
                     while(nick != "0"){
+                        cin.get();
                         getline(cin, nick, '\n');
                         if(nick != "0"){
                             if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
