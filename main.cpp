@@ -448,7 +448,7 @@ void RealizarCaso(){
                 }
                 cout <<"seleccione otro caso" << "\n" << endl;
                 break;
-            case 5: //Crear Promocion
+            case 5: //Crear Promocion TERMINADO
                 try{
                     IPromocion* manejadorPromocion = fab->getIPromocion();
                     IUsuario* controladorUsuario = fab->getIUsuario();
@@ -470,6 +470,7 @@ void RealizarCaso(){
                     cout << "Ingrese el descuento de la promocion" << endl;
                     int descuento;
                     cin >> descuento;
+                    if(descuento < 1 || descuento > 100) throw(5);
                     cout << "Ingrese la fecha de caducidad de la promocion" << endl;
                     int dia;
                     int mes;
@@ -515,6 +516,7 @@ void RealizarCaso(){
                         cout << "Seleccione la cantidad minima" << endl;
                         int cantmin;
                         cin >> cantmin;
+                        if(cantmin <= 0) throw(6);
                         minimas.insert({id, cantmin});
                         Producto* prod = controladorProducto->SeleccionarProducto(id);
                         productos.push_back(prod);
@@ -548,6 +550,15 @@ void RealizarCaso(){
                         cout << "El nombre de la promocion ya esta en uso" << endl;
                     } else if(numError == 4){
                         cout << "El producto no pertenece al vendedor seleccionado" << endl;
+                    }
+                    else if(numError == 5){
+                        cout << "Error: Descuento Invalido" << endl;
+                    }
+                    else if(numError == 5){
+                        cout << "Error: Cantidad Invalida" << endl;
+                    }
+                    else{
+                        cout << "Error Desconocido" << endl;
                     }
                 }
                 cout <<"seleccione otro caso" << "\n";
