@@ -51,7 +51,7 @@ class IUsuario {
     //lista los vendedores a los que no esta suscrito el cliente ingresado
     virtual list<string>* ListarVendedoresNoSuscrito(string nickname) = 0; //✔
 
-    virtual void SeleccionarVendedorNotificacion(string nickname) = 0; //✔
+    virtual bool SeleccionarVendedorNotificacion(string nickname) = 0; //✔
 
     //
     virtual void ConfirmarSuscripcion() = 0; //✔

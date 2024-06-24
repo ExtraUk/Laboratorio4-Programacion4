@@ -61,7 +61,7 @@ public:
     //lista los vendedores a los que no esta suscrito el cliente ingresado
     list<string>* ListarVendedoresNoSuscrito(string nickname); //✔
 
-    void SeleccionarVendedorNotificacion(string nickname); //✔
+    bool SeleccionarVendedorNotificacion(string nickname); //✔
 
     //
     void ConfirmarSuscripcion(); //✔

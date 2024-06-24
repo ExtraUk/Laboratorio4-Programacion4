@@ -116,12 +116,18 @@ list<string>* ControladorUsuario::ListarVendedoresNoSuscrito(string nickname){
 	}
 }
 
-void ControladorUsuario::SeleccionarVendedorNotificacion(string nickname){
-	if(this->vendedores.end() != this->vendedores.find(nickname)){
-		this->vendedoresSeleccionados.push_back(*this->vendedores[nickname]);
+bool ControladorUsuario::SeleccionarVendedorNotificacion(string nickname){
+	try{
+		if(this->vendedores.end() != this->vendedores.find(nickname)){
+			this->vendedoresSeleccionados.push_back(*this->vendedores[nickname]);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
-	else{
-		throw("Error: Nickname de Vendedor Invalido");
+	catch(...){
+		return false;
 	}
 }
 

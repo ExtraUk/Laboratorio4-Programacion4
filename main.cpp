@@ -466,7 +466,7 @@ void RealizarCaso(){
                     cin >> dia;
                     cin >> mes;
                     cin >> ano;
-                    if(dia > 31 || dia << 1 || mes > 12 || mes < 1 || ano < 1){
+                    if(dia > 31 || dia < 1 || mes > 12 || mes < 1 || ano < 1){
                         throw(0);
                     }
                     DTFecha fecha = DTFecha(dia, mes, ano);
@@ -835,7 +835,7 @@ void RealizarCaso(){
                     getline(cin, nick, '\n');
                     list<string>* listaVendedores = fab->getIUsuario()->ListarVendedoresNoSuscrito(nick);
                     if(listaVendedores == nullptr) throw("Error: Nickname de Cliente Invalido");
-                    cout << "Vendedores No Suscritos por el Cliente";
+                    cout << "Vendedores No Suscritos por el Cliente" << endl;
                     mostrarListaString(listaVendedores);
 
                     nick = "1";
@@ -844,7 +844,7 @@ void RealizarCaso(){
                         cin.ignore(80, '\n');
                         getline(cin, nick, '\n');
                         if(nick != "0"){
-                            fab->getIUsuario()->SeleccionarVendedorNotificacion(nick);
+                            if(!fab->getIUsuario()->SeleccionarVendedorNotificacion(nick)) throw("Error: Nickname de Vendedor Invalido");
                         }
                     }
                     
